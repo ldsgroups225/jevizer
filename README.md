@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Jeviz - Intelligent Study Companion
 
-## Getting Started
+**Your smart learning partner for BEPC and BAC exams in Ivory Coast**
+_Combining spaced repetition, gamification, and AI-powered insights_
 
-First, run the development server:
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Next](https://img.shields.io/badge/Next-15.2.4-green.svg)](https://nuxt.com/)
+[![Appwrite](https://img.shields.io/badge/Appwrite-1.3-red.svg)](https://appwrite.io)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<div align="center">
+  <img src="public/logo.svg" alt="Jeviz Logo" width="200">
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌟 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🎯 **Exam-Focused Content**: Curated materials for BEPC and BAC exams
+- 📱 **Mobile-First PWA**: Installable progressive web app with offline support
+- 🧠 **Spaced Repetition System**: AI-optimized learning schedules
+- 🎮 **Gamified Learning**: Earn badges, points, and compete on leaderboards
+- 🤖 **AI Integration**: Smart content generation and progress predictions
+- 📊 **Real-Time Analytics**: Detailed performance tracking
+- 👥 **Social Learning**: Share decks and collaborate with peers
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Technology Stack
