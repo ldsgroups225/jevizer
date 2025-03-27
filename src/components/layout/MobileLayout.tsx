@@ -1,64 +1,63 @@
-"use client"
+// src/components/layout/MobileLayout.tsx
+'use client'
 
-import React from 'react'
+import { cn } from '@/lib/utils'
+import { BarChart3, BookOpen, Home, Menu, Search } from 'lucide-react'
 import Link from 'next/link'
-import { Home, BookOpen, Search, BarChart3, Menu } from 'lucide-react'
+import React from 'react'
 
 interface MobileLayoutProps {
   children: React.ReactNode
   activeTab?: 'home' | 'learning' | 'search' | 'statistics' | 'menu'
+  // Add a prop to control the background color if needed, default to light blue
+  bodyClassName?: string
 }
 
-export default function MobileLayout({ children, activeTab = 'home' }: MobileLayoutProps) {
+const navItems = [
+  { href: '/', label: 'Home', icon: Home, key: 'home' },
+  { href: '/learning', label: 'Learning', icon: BookOpen, key: 'learning' },
+  { href: '/search', label: 'Search', icon: Search, key: 'search' },
+  {
+    href: '/statistics',
+    label: 'Statistics',
+    icon: BarChart3,
+    key: 'statistics',
+  },
+  { href: '/menu', label: 'Menu', icon: Menu, key: 'menu' },
+] as const // Use 'as const' for stricter typing
+
+export default function MobileLayout({
+  children,
+  activeTab = 'home',
+  bodyClassName = 'bg-sky-50', // Lighter blue like the design
+}: MobileLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-sky-100">
-      <main className="flex-1 pb-16">
-        {children}
-      </main>
-      
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16">
-        <div className="grid grid-cols-5 h-full">
-          <Link 
-            href="/"
-            className={`flex flex-col items-center justify-center ${activeTab === 'home' ? 'text-blue-500' : 'text-gray-600'}`}
-          >
-            <Home size={24} />
-            <span className="text-xs mt-1">Home</span>
-          </Link>
-          
-          <Link 
-            href="/learning"
-            className={`flex flex-col items-center justify-center ${activeTab === 'learning' ? 'text-blue-500' : 'text-gray-600'}`}
-          >
-            <BookOpen size={24} />
-            <span className="text-xs mt-1">Learning</span>
-          </Link>
-          
-          <Link 
-            href="/search"
-            className={`flex flex-col items-center justify-center ${activeTab === 'search' ? 'text-blue-500' : 'text-gray-600'}`}
-          >
-            <Search size={24} />
-            <span className="text-xs mt-1">Search</span>
-          </Link>
-          
-          <Link 
-            href="/statistics"
-            className={`flex flex-col items-center justify-center ${activeTab === 'statistics' ? 'text-blue-500' : 'text-gray-600'}`}
-          >
-            <BarChart3 size={24} />
-            <span className="text-xs mt-1">Statistics</span>
-          </Link>
-          
-          <Link 
-            href="/menu"
-            className={`flex flex-col items-center justify-center ${activeTab === 'menu' ? 'text-blue-500' : 'text-gray-600'}`}
-          >
-            <Menu size={24} />
-            <span className="text-xs mt-1">Menu</span>
-          </Link>
+    <div className="flex flex-col min-h-screen">
+      <main className={cn('flex-1 pb-16', bodyClassName)}>{children}</main>
+
+      <nav className="fixed bottom-0 left-0 right-0 z-50 h-16 bg-white border-t border-gray-200 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+        <div className="grid h-full grid-cols-5">
+          {navItems.map((item) => {
+            const isActive = activeTab === item.key
+            return (
+              <Link
+                key={item.key}
+                href={item.href}
+                className={cn(
+                  'flex flex-col items-center justify-center transition-colors duration-150 ease-in-out',
+                  isActive ? 'text-blue-600' : 'text-gray-500 hover:text-gray-700',
+                )}
+              >
+                <item.icon
+                  size={24}
+                  strokeWidth={isActive ? 2.5 : 2} // Slightly bolder when active
+                />
+                <span className="mt-1 text-[10px] font-medium">{item.label}</span>
+              </Link>
+            )
+          })}
         </div>
       </nav>
     </div>
   )
-} 
+}

@@ -1,80 +1,70 @@
-"use client"
+// src/features/home/components/DeckList.tsx
+'use client'
 
-import React, { useState } from 'react'
-import { FlashCard } from '@/features/shared/components/FlashCard'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
+
+import { FlashCard } from '@/features/shared/components/FlashCard'
+// Added icons
+import React, { useState } from 'react'
 
 interface Deck {
   id: string
   title: string
-  subtitle?: string
-  tags: string[]
-  progress: number
+  lastReview: string
+  new: number
+  learning: number
+  reviewing: number
+  progress: number // Keep progress even if not shown initially
 }
 
 interface DeckListProps {
-  title: string
   decks: Deck[]
   onAddDeck?: () => void
 }
 
-export function DeckList({ title, decks, onAddDeck }: DeckListProps) {
+export function DeckList({ decks, onAddDeck }: DeckListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
-  
+
   const toggleExpand = (id: string) => {
-    setExpandedId(prev => prev === id ? null : id)
+    setExpandedId(prev => (prev === id ? null : id))
   }
-  
+
   return (
-    <div className="pb-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-medium">{title}</h2>
-      </div>
-      
-      <div>
-        {decks.map(deck => (
+    <div className="space-y-3">
+      {decks.map((deck) => {
+        const isExpanded = expandedId === deck.id
+        return (
           <FlashCard
             key={deck.id}
             title={deck.title}
-            subtitle={deck.subtitle}
-            tags={deck.tags}
-            progress={deck.progress}
-            expanded={expandedId === deck.id}
-            onClick={() => toggleExpand(deck.id)}
+            lastReview={deck.lastReview} // Pass last review time
+            stats={{ new: deck.new, learning: deck.learning, reviewing: deck.reviewing }} // Pass stats
+            expanded={isExpanded}
+            onToggleExpand={() => toggleExpand(deck.id)} // Pass toggle function
+            onOptionsClick={e => e.stopPropagation()} // Prevent card toggle when clicking options
           >
-            <div className="py-2">
-              <div className="flex gap-2 mb-2">
-                <div className="flex flex-col items-center text-xs text-gray-500">
-                  <span className="font-semibold text-gray-700">248</span>
-                  <span>New</span>
-                </div>
-                <div className="flex flex-col items-center text-xs text-gray-500">
-                  <span className="font-semibold text-gray-700">79</span>
-                  <span>To Review</span>
-                </div>
-                <div className="flex flex-col items-center text-xs text-gray-500">
-                  <span className="font-semibold text-gray-700">10</span>
-                  <span>Minutes</span>
-                </div>
-              </div>
-              
-              <Button className="w-full" size="sm">
-                Start Learning
-              </Button>
+            {/* Content shown when expanded */}
+            <div className="flex justify-between items-center pt-2">
+              <Button size="sm" className="flex-1">Learn</Button>
+              {/* Add Edit and Options buttons if needed based on design */}
+              {/* <Button variant="outline" size="sm">Edit</Button> */}
+              {/* <Button variant="outline" size="sm">Options</Button> */}
             </div>
           </FlashCard>
-        ))}
-        
-        <Button 
-          variant="outline" 
-          className="w-full mt-2 border-dashed"
-          onClick={onAddDeck}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Add Deck
-        </Button>
-      </div>
+        )
+      })}
+
+      {/* Add Deck Button - Removed as it's part of the FAB flow now */}
+      {/*
+      <Button
+        variant="outline"
+        className="w-full mt-2 border-dashed border-gray-400 text-gray-600 hover:bg-gray-50"
+        onClick={onAddDeck}
+      >
+        <Plus className="mr-2 h-4 w-4" />
+        Add Deck
+      </Button>
+      */}
     </div>
   )
-} 
+}

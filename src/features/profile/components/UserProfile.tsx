@@ -1,118 +1,177 @@
-"use client"
+// src/features/profile/components/UserProfile.tsx
+'use client'
 
-import React from 'react'
-import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { ChevronRight, Edit, Library } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress' // Use Progress
+import { BookOpen, Clock, Download, Edit, Star } from 'lucide-react' // Added icons
+import Image from 'next/image'
+import React from 'react'
+
+interface Interest {
+  id: string
+  name: string
+  icon?: React.ReactNode // Can be emoji string or component
+}
+
+interface SavedDeck {
+  id: string
+  title: string
+  downloads: number
+  rating: number
+  cards: number
+  time: number
+  iconUrl?: string
+}
+
+interface StudyGoal {
+  current: number
+  total: number
+  percentage: number
+}
 
 interface UserProfileProps {
   name: string
-  username: string
+  email: string
   avatarUrl?: string
-  stats: {
-    studyDays: number
-    cards: number
-  }
-  interests: {
-    id: string
-    name: string
-    icon?: React.ReactNode
-  }[]
-  savedDecks: {
-    id: string
-    title: string
-    tags: string[]
-    cards: number
-  }[]
+  studyGoal: StudyGoal
+  interests: Interest[]
+  savedDecks: SavedDeck[]
 }
 
 export function UserProfile({
   name,
-  username,
+  email,
   avatarUrl,
-  stats,
+  studyGoal,
   interests,
-  savedDecks
+  savedDecks,
 }: UserProfileProps) {
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+  }
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-3">
-        <Avatar className="h-12 w-12">
+    <div className="space-y-6">
+      {/* User Info */}
+      <div className="flex items-center gap-4">
+        <Avatar className="h-16 w-16">
           <AvatarImage src={avatarUrl} alt={name} />
-          <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+          <AvatarFallback className="text-xl">{getInitials(name)}</AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <h2 className="font-medium">Hi, {name}</h2>
-            <Button size="icon" variant="ghost" className="h-6 w-6">
-              <Edit className="h-3 w-3" />
-            </Button>
-          </div>
-          <p className="text-sm text-gray-500">@{username}</p>
+          <h2 className="text-xl font-semibold">
+            Hi,
+            {name}
+          </h2>
+          <p className="text-sm text-gray-500">{email}</p>
         </div>
+        <Button size="icon" variant="ghost" className="text-gray-500">
+          <Edit className="h-5 w-5" />
+        </Button>
       </div>
-      
-      <Card>
+
+      {/* Study Progress */}
+      <Card className="bg-white rounded-xl p-0 overflow-hidden">
         <CardContent className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center">
-              <span className="font-bold">{stats.studyDays}</span>
-              <span className="text-xs text-gray-500">Study Days</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="font-bold">{stats.cards}</span>
-              <span className="text-xs text-gray-500">Total Cards</span>
-            </div>
+          <div className="flex justify-between items-center mb-1">
+            <p className="text-sm font-medium">
+              Study
+              {studyGoal.total}
+              {' '}
+              Cards
+            </p>
+            <p className="text-xs text-gray-500">
+              {studyGoal.percentage}
+              % More To Finish it, Keep Going!
+            </p>
           </div>
+          <Progress value={studyGoal.percentage} className="h-2" />
+          <p className="text-right text-xs text-gray-500 mt-1">
+            {studyGoal.current}
+            {' '}
+            Cards
+          </p>
         </CardContent>
       </Card>
-      
+
+      {/* Interests */}
       <div>
-        <h3 className="font-medium mb-2">Your Interests</h3>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="text-base font-semibold">Your Interests</h3>
+          <Button size="icon" variant="ghost" className="text-gray-500 w-7 h-7">
+            <Edit className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {' '}
+          {/* Changed to 3 columns */}
           {interests.map(interest => (
-            <Card key={interest.id} className="flex flex-col items-center p-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-2">
-                {interest.icon || <span className="text-xl">🎯</span>}
+            <Card key={interest.id} className="flex flex-col items-center p-3 bg-white border-gray-200 shadow-sm h-24 justify-center">
+              {/* Icon Placeholder */}
+              <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-2 text-xl">
+                {interest.icon || '🎯'}
               </div>
-              <span className="text-xs text-center">{interest.name}</span>
+              <span className="text-xs text-center text-gray-700">{interest.name}</span>
             </Card>
           ))}
         </div>
       </div>
-      
+
+      {/* Saved Decks */}
       <div>
-        <h3 className="font-medium mb-2">Saved</h3>
-        {savedDecks.map(deck => (
-          <Card key={deck.id} className="mb-3">
-            <CardContent className="p-3">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h4 className="font-medium">{deck.title}</h4>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {deck.tags.map((tag, i) => (
-                      <span 
-                        key={i} 
-                        className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full"
-                      >
-                        {tag}
+        <h3 className="text-base font-semibold mb-3">Saved</h3>
+        <div className="space-y-3">
+          {savedDecks.map(deck => (
+            <Card key={deck.id} className="rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-white">
+              <CardContent className="p-3">
+                <div className="flex items-start gap-3">
+                  <Image
+                    src={deck.iconUrl || '/placeholder-deck.png'}
+                    alt={deck.title}
+                    width={48}
+                    height={48}
+                    className="rounded bg-gray-100 object-cover mt-1 flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-base mb-1">{deck.title}</h3>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+                      <span className="flex items-center">
+                        <Download className="w-3 h-3 mr-1" />
+                        {' '}
+                        {deck.downloads}
                       </span>
-                    ))}
+                      <span className="flex items-center">
+                        <Star className="w-3 h-3 mr-1" />
+                        {' '}
+                        {deck.rating}
+                      </span>
+                      <span className="flex items-center">
+                        <BookOpen className="w-3 h-3 mr-1" />
+                        {' '}
+                        {deck.cards}
+                      </span>
+                      <span className="flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {' '}
+                        {deck.time}
+                      </span>
+                      {' '}
+                      {/* Adjust unit display */}
+                    </div>
                   </div>
+                  <Button size="sm" className="ml-auto mt-1 h-8 px-3">See More</Button>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <Library className="h-4 w-4" />
-                  <span>{deck.cards}</span>
-                  <button className="p-1">
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   )
-} 
+}

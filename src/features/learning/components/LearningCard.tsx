@@ -1,94 +1,113 @@
-"use client"
+// src/features/learning/components/LearningCard.tsx
+'use client'
 
-import React, { useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft, Mic, RefreshCw } from 'lucide-react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card, CardContent } from '@/components/ui/card'
+import { Slider } from '@/components/ui/slider' // For audio progress
+import { Bookmark, Edit, Play, Volume2 } from 'lucide-react' // Added icons
+import React from 'react'
 
 interface LearningCardProps {
-  deckName: string
-  front: string
-  back: string
-  onNext?: () => void
-  onPrev?: () => void
-  showAnswer?: boolean
-  onShowAnswer?: () => void
+  frontContent: React.ReactNode
+  backContent: React.ReactNode
+  state: 'front' | 'back'
+  onShowAnswer: () => void
+  onRate: (rating: 'again' | 'good' | 'easy') => void
+  audioUrl?: string // Optional audio URL
 }
 
 export function LearningCard({
-  deckName,
-  front,
-  back,
-  onNext,
-  onPrev,
-  showAnswer = false,
-  onShowAnswer
+  frontContent,
+  backContent,
+  state,
+  onShowAnswer,
+  onRate,
+  audioUrl,
 }: LearningCardProps) {
-  const [activeTab, setActiveTab] = useState<'front' | 'back'>(showAnswer ? 'back' : 'front')
-  
-  const handleShowAnswer = () => {
-    setActiveTab('back')
-    onShowAnswer?.()
+  const renderContent = (content: React.ReactNode) => {
+    if (typeof content === 'string' && content.length < 5) { // Assume large characters like Kanji
+      return <div className="text-6xl font-medium text-center">{content}</div>
+    }
+    return <div className="text-2xl text-center">{content}</div>
   }
-  
+
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center py-4">
-        <Button variant="ghost" size="icon" onClick={onPrev}>
-          <ChevronLeft className="h-6 w-6" />
-        </Button>
-        <h2 className="text-sm text-center flex-1">
-          The Name Of The Deck
-        </h2>
-      </div>
-      
-      <Tabs 
-        value={activeTab} 
-        onValueChange={(v) => setActiveTab(v as 'front' | 'back')}
-        className="flex-1 flex flex-col"
-      >
-        <div className="flex-1 flex flex-col items-center justify-center p-6">
-          <TabsContent value="front" className="flex-1 w-full flex flex-col items-center justify-center">
-            <Card className="w-full aspect-square flex items-center justify-center bg-gray-50 border-2 mb-4">
-              <CardContent className="flex items-center justify-center p-4 text-center">
-                <div className="text-4xl font-bold">{front}</div>
-              </CardContent>
-            </Card>
-            
-            <Button 
-              className="w-full mt-4" 
-              onClick={handleShowAnswer}
-            >
-              Show Answer
-            </Button>
-          </TabsContent>
-          
-          <TabsContent value="back" className="flex-1 w-full flex flex-col items-center justify-center">
-            <Card className="w-full aspect-square flex items-center justify-center bg-gray-50 border-2 mb-4">
-              <CardContent className="flex items-center justify-center p-4 text-center">
-                <div className="text-4xl font-bold">{back}</div>
-              </CardContent>
-            </Card>
-            
-            <div className="grid grid-cols-2 gap-2 w-full mt-4">
-              <Button variant="outline" onClick={() => setActiveTab('front')}>Review</Button>
-              <Button onClick={onNext}>Got it</Button>
+    <div className="flex flex-col flex-1 justify-between">
+      {/* Card Display */}
+      <Card className="flex-grow flex flex-col justify-center items-center p-6 border-gray-200 shadow-sm min-h-[50vh]">
+        <CardContent className="w-full p-0">
+          {renderContent(frontContent)}
+          {state === 'back' && (
+            <>
+              <hr className="my-4 border-gray-200" />
+              {renderContent(backContent)}
+            </>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Actions */}
+      <div className="mt-4">
+        {state === 'front' ? (
+          <Button className="w-full h-12 text-base" onClick={onShowAnswer}>
+            Show Answer
+          </Button>
+        ) : (
+          <>
+            {/* Audio Player (Conditional) */}
+            {audioUrl && (
+              <div className="flex items-center gap-3 mb-4 px-2">
+                <Button variant="ghost" size="icon" className="rounded-full bg-gray-100">
+                  <Play className="w-5 h-5" />
+                </Button>
+                <Slider defaultValue={[33]} max={100} step={1} className="flex-1" />
+                <span className="text-xs text-gray-500">00:02.30</span>
+                <Button variant="ghost" size="icon" className="text-gray-500">
+                  <Volume2 className="w-5 h-5" />
+                </Button>
+              </div>
+            )}
+
+            {/* Rating Buttons */}
+            <div className="grid grid-cols-3 gap-3">
+              <Button
+                variant="outline"
+                className="h-14 flex flex-col border-red-300 text-red-600 hover:bg-red-50"
+                onClick={() => onRate('again')}
+              >
+                Again
+                <span className="text-xs font-normal">1 Min</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-14 flex flex-col border-blue-300 text-blue-600 hover:bg-blue-50"
+                onClick={() => onRate('good')}
+              >
+                Good
+                <span className="text-xs font-normal">10 Min</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-14 flex flex-col border-green-300 text-green-600 hover:bg-green-50"
+                onClick={() => onRate('easy')}
+              >
+                Easy
+                <span className="text-xs font-normal">4 Days</span>
+              </Button>
             </div>
-          </TabsContent>
-        </div>
-        
-        <TabsList className="grid grid-cols-2 mt-4">
-          <TabsTrigger value="front">Front</TabsTrigger>
-          <TabsTrigger value="back">Back</TabsTrigger>
-        </TabsList>
-      </Tabs>
-      
-      <div className="py-4 flex justify-center">
-        <Button variant="ghost" size="icon" className="rounded-full bg-gray-200">
-          <Mic className="h-5 w-5" />
-        </Button>
+
+            {/* Bottom Icons */}
+            <div className="flex justify-center gap-8 mt-4">
+              <Button variant="ghost" size="icon" className="text-gray-500">
+                <Bookmark className="w-5 h-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="text-gray-500">
+                <Edit className="w-5 h-5" />
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
-} 
+}

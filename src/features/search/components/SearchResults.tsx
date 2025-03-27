@@ -1,70 +1,88 @@
-"use client"
+// src/features/search/components/SearchResults.tsx
+'use client'
 
-import React from 'react'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { FlashCard } from '@/features/shared/components/FlashCard'
+import { BookOpen, Clock, Download, Settings2, Star } from 'lucide-react' // Added icons
+import Image from 'next/image'
+import React from 'react'
 
-interface SearchCategory {
+interface DeckResult {
   id: string
-  name: string
-  icon?: React.ReactNode
+  title: string
+  downloads: number
+  rating: number // Assuming rating is a number like stars count or similar
+  cards: number
+  time: number // Assuming time is in some unit like minutes or seconds
+  iconUrl?: string
 }
 
-interface SearchResultProps {
+interface SearchResultsProps {
   searchTerm: string
-  categories: SearchCategory[]
-  popularDecks: {
-    id: string
-    title: string
-    tags: string[]
-    cards: number
-    level: string
-  }[]
+  results: DeckResult[]
 }
 
-export function SearchResults({ searchTerm, categories, popularDecks }: SearchResultProps) {
+export function SearchResults({ searchTerm, results }: SearchResultsProps) {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-md font-medium mb-3">Popular Categories</h2>
-        <div className="grid grid-cols-4 gap-2">
-          {categories.map(category => (
-            <Card key={category.id} className="flex flex-col items-center p-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-2">
-                {category.icon || <span className="text-xl">🎯</span>}
-              </div>
-              <span className="text-xs text-center">{category.name}</span>
-            </Card>
-          ))}
-        </div>
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-base font-semibold">
+          {results.length}
+          {' '}
+          Results for "
+          {searchTerm}
+          "
+        </h2>
+        <Button variant="ghost" size="sm" className="text-gray-600">
+          <Settings2 className="w-4 h-4 mr-1" />
+          {' '}
+          Modified
+        </Button>
       </div>
-      
-      <div>
-        <h2 className="text-md font-medium mb-3">Popular Decks</h2>
-        {popularDecks.map(deck => (
-          <Card key={deck.id} className="mb-3">
-            <CardContent className="p-3">
-              <h3 className="font-medium">{deck.title}</h3>
-              <div className="flex justify-between items-center mt-1">
-                <div className="flex flex-wrap gap-1">
-                  {deck.tags.map((tag, i) => (
-                    <span 
-                      key={i} 
-                      className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center text-xs text-gray-500 gap-3">
-                  <span>{deck.cards} Cards</span>
-                  <span>{deck.level}</span>
+
+      {results.map(deck => (
+        <Card key={deck.id} className="rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-white">
+          <CardContent className="p-3">
+            <div className="flex items-start gap-3">
+              <Image
+                src={deck.iconUrl || '/placeholder-deck.png'}
+                alt={deck.title}
+                width={48}
+                height={48}
+                className="rounded bg-gray-100 object-cover mt-1 flex-shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-base mb-1">{deck.title}</h3>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+                  <span className="flex items-center">
+                    <Download className="w-3 h-3 mr-1" />
+                    {' '}
+                    {deck.downloads}
+                  </span>
+                  <span className="flex items-center">
+                    <Star className="w-3 h-3 mr-1" />
+                    {' '}
+                    {deck.rating}
+                  </span>
+                  <span className="flex items-center">
+                    <BookOpen className="w-3 h-3 mr-1" />
+                    {' '}
+                    {deck.cards}
+                  </span>
+                  <span className="flex items-center">
+                    <Clock className="w-3 h-3 mr-1" />
+                    {' '}
+                    {deck.time}
+                  </span>
+                  {' '}
+                  {/* Adjust unit display */}
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              <Button size="sm" className="ml-auto mt-1 h-8 px-3">See More</Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   )
-} 
+}

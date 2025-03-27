@@ -1,81 +1,110 @@
-"use client"
+// src/features/profile/components/SideMenu.tsx
+'use client'
 
-import React from 'react'
-import Link from 'next/link'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { 
-  User, 
-  Bell, 
-  HelpCircle, 
+import { Switch } from '@/components/ui/switch' // Use Switch component
+import {
+  Bell,
+  ChevronRight,
+  HelpCircle,
+  LogOut,
   Moon,
-  LogOut 
+  Settings, // Added for Support Ankidroid
+  User,
 } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
 
 interface SideMenuProps {
   username: string
+  email: string
   avatarUrl?: string
   darkMode?: boolean
   onToggleDarkMode?: () => void
 }
 
-export function SideMenu({ username, avatarUrl, darkMode = false, onToggleDarkMode }: SideMenuProps) {
+export function SideMenu({
+  username,
+  email,
+  avatarUrl,
+  darkMode = false,
+  onToggleDarkMode,
+}: SideMenuProps) {
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+  }
+
   return (
+    // Removed fixed height, let it fill the container from MobileLayout
     <div className="flex flex-col h-full p-4 bg-white">
-      <div className="flex items-center gap-3 mb-6">
-        <Avatar>
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-8">
+        <Avatar className="h-12 w-12">
           <AvatarImage src={avatarUrl} alt={username} />
-          <AvatarFallback>{username.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{getInitials(username)}</AvatarFallback>
         </Avatar>
         <div>
-          <h2 className="font-medium">{username}</h2>
+          <h2 className="font-semibold text-lg">{username}</h2>
+          <p className="text-sm text-gray-500">{email}</p>
         </div>
+        <Link href="/profile" className="ml-auto">
+          <Button variant="ghost" size="icon" className="text-gray-500">
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </Link>
       </div>
-      
-      <nav className="flex-1">
-        <ul className="space-y-2">
-          <li>
-            <Link href="/profile" className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md">
-              <User className="h-5 w-5 text-gray-600" />
-              <span>Profile</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/notifications" className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md">
-              <Bell className="h-5 w-5 text-gray-600" />
-              <span>Notification</span>
-            </Link>
-          </li>
-          <li>
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start gap-3 p-2 h-auto font-normal hover:bg-gray-100"
-              onClick={onToggleDarkMode}
-            >
-              <Moon className="h-5 w-5 text-gray-600" />
-              <span>Dark Mode</span>
-              <div className={`ml-auto w-8 h-4 rounded-full ${darkMode ? 'bg-blue-500' : 'bg-gray-300'}`}>
-                <div 
-                  className={`w-3 h-3 rounded-full bg-white transform transition-transform ${
-                    darkMode ? 'translate-x-4' : 'translate-x-1'
-                  } translate-y-0.5`} 
-                />
-              </div>
-            </Button>
-          </li>
-          <li>
-            <Link href="/help" className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md">
-              <HelpCircle className="h-5 w-5 text-gray-600" />
-              <span>Help Center</span>
-            </Link>
-          </li>
-        </ul>
+
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1">
+        <Link href="/profile" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
+          <User className="h-5 w-5 text-gray-500" />
+          <span>Profile</span>
+        </Link>
+        <Link href="/notifications" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
+          <Bell className="h-5 w-5 text-gray-500" />
+          <span>Notification</span>
+        </Link>
+
+        {/* Dark Mode Toggle */}
+        <div
+          className="flex items-center justify-between gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium cursor-pointer"
+          onClick={onToggleDarkMode} // Make the whole row clickable
+        >
+          <div className="flex items-center gap-4">
+            <Moon className="h-5 w-5 text-gray-500" />
+            <span>Dark Mood</span>
+          </div>
+          <Switch
+            checked={darkMode}
+            onCheckedChange={onToggleDarkMode}
+            aria-label="Toggle dark mode"
+            onClick={e => e.stopPropagation()} // Prevent row click handler
+          />
+        </div>
+
+        <Link href="/help" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
+          <HelpCircle className="h-5 w-5 text-gray-500" />
+          <span>Help Center</span>
+        </Link>
+        <Link href="/support" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
+          <Settings className="h-5 w-5 text-gray-500" />
+          <span>Support Ankidroid</span>
+        </Link>
       </nav>
-      
-      <Button variant="ghost" className="justify-start text-red-500 mt-6 px-2">
-        <LogOut className="h-5 w-5 mr-3" />
+
+      {/* Logout */}
+      <Button
+        variant="ghost"
+        className="justify-start gap-4 p-3 h-12 text-red-500 hover:bg-red-50 hover:text-red-600 mt-6 text-base font-medium"
+      >
+        <LogOut className="h-5 w-5" />
         Log Out
       </Button>
     </div>
   )
-} 
+}
