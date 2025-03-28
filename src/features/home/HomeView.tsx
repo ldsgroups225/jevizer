@@ -25,6 +25,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs' // Use Tabs
 import { Menu as MenuIcon, MoreVertical, Plus, RefreshCw, Search } from 'lucide-react' // Added icons
 import Image from 'next/image' // For Logo
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { DeckList } from './components/DeckList'
 
@@ -42,8 +43,41 @@ const IMPORTED_DECKS = [
   { id: '7', title: 'Learn Japanese With Photos', lastReview: '1 Month Ago', new: 50, learning: 20, reviewing: 10, progress: 0 },
 ]
 
+// Define the Deck type to match the structure used
+interface Deck {
+  id: string
+  title: string
+  lastReview: string
+  new: number
+  learning: number
+  reviewing: number
+  progress: number
+}
+
 export function HomeView() {
   const [openSheet, setOpenSheet] = useState(false)
+  const router = useRouter()
+
+  const handleContinueLearning = () => {
+    router.push('/learning')
+  }
+
+  const navigateToAddCard = () => {
+    setOpenSheet(false)
+    router.push('/add/card')
+  }
+
+  const navigateToAddDeck = () => {
+    setOpenSheet(false)
+    // Assuming there would be an add deck page
+    // router.push('/add/deck')
+    console.warn('Add Deck page not implemented yet')
+  }
+
+  const navigateToSharedDecks = () => {
+    setOpenSheet(false)
+    router.push('/search')
+  }
 
   return (
     <MobileLayout activeTab="home">
@@ -116,7 +150,7 @@ export function HomeView() {
                     Reviewing
                   </Badge>
                 </div>
-                <Button size="sm" className="h-8 px-3">Continue Learning</Button>
+                <Button size="sm" className="h-8 px-3" onClick={handleContinueLearning}>Continue Learning</Button>
               </div>
               <ProgressCircle value={MOCK_DECKS[0].progress} size={70} strokeWidth={6} />
             </div>
@@ -153,18 +187,17 @@ export function HomeView() {
             <SheetTitle>Add</SheetTitle>
           </SheetHeader>
           <div className="p-4 pt-0 space-y-2">
-            {/* TODO: Add proper icons */}
-            <Button variant="ghost" className="w-full justify-start h-12 text-base" onClick={() => { /* Navigate to Add Card */ setOpenSheet(false) }}>
+            <Button variant="ghost" className="w-full justify-start h-12 text-base" onClick={navigateToAddCard}>
               <Plus className="mr-3 w-5 h-5" />
               {' '}
               Add Cards
             </Button>
-            <Button variant="ghost" className="w-full justify-start h-12 text-base" onClick={() => { /* Navigate to Add Deck */ setOpenSheet(false) }}>
+            <Button variant="ghost" className="w-full justify-start h-12 text-base" onClick={navigateToAddDeck}>
               <Plus className="mr-3 w-5 h-5" />
               {' '}
               Add Deck
             </Button>
-            <Button variant="ghost" className="w-full justify-start h-12 text-base" onClick={() => { /* Navigate to Shared Decks */ setOpenSheet(false) }}>
+            <Button variant="ghost" className="w-full justify-start h-12 text-base" onClick={navigateToSharedDecks}>
               <Plus className="mr-3 w-5 h-5" />
               {' '}
               Get Shared Decks

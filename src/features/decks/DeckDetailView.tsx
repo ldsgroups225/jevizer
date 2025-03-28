@@ -1,0 +1,148 @@
+'use client'
+
+import MobileLayout from '@/components/layout/MobileLayout'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Bookmark, ChevronLeft, Download, Edit3, Play, Share2 } from 'lucide-react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+
+// Mock data for demonstration
+const MOCK_DECK = {
+  id: 'dk1',
+  name: 'Sample (From 2164 Notes)',
+  author: 'Ahmed Ashraf',
+  authorAvatar: '/avatar-placeholder.png',
+  cardCount: 2000,
+  language: 'English',
+  description: 'This Is A Deck Including All 2200 Kanji Of The Book Remembering The Kanji 1, 6th Edition, By James W. Heisig. I Was Going To Study This Book And Thought Using Anki With It Would Be Perfect, But Lazy As I Was, I Looked For Shared Decks. I Quickly Figured Out That Many Of The Decks Weren\'t Complete, Didn\'t Suit My Taste, Or Was From An Older Edition. So I Decided To Create This Deck. The Deck Doesn\'t Contain The Primitive Elements That Are Not Themselves Kanji.',
+  reviews: [],
+  frontExample: '家族',
+  backExample: 'Family',
+  audioUrl: '/audio-placeholder.mp3',
+}
+
+export function DeckDetailView({ deckId }: { deckId: string }) {
+  // In a real app, fetch deck data based on deckId
+  const deck = MOCK_DECK
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back()
+  }
+
+  const handleBookmark = () => {
+    // Toggle bookmark functionality would be implemented here
+    // For now, just log a message
+    console.log('Toggling bookmark for deck:', deckId)
+  }
+
+  const handleSave = () => {
+    // Save deck functionality would be implemented here
+    // For now, just log a message
+    console.log('Saving deck to collection:', deckId)
+  }
+
+  const handleDownload = () => {
+    // Download deck functionality would be implemented here
+    // Then navigate to home
+    router.push('/')
+  }
+
+  return (
+    <MobileLayout bodyClassName="bg-primary-light-bg">
+      <div className="flex flex-col h-full">
+        <header className="flex items-center px-2 py-3 text-white bg-primary">
+          <Button variant="ghost" size="icon" className="text-white hover:bg-primary-darker" onClick={handleBack}>
+            <ChevronLeft className="w-6 h-6" />
+          </Button>
+          <h1 className="flex-1 text-center text-base font-medium">
+            The Name Of The Deck
+          </h1>
+          <Button variant="ghost" size="icon" className="text-white hover:bg-primary-darker" onClick={handleBookmark}>
+            <Bookmark className="w-5 h-5" />
+          </Button>
+        </header>
+
+        <div className="p-4 space-y-4 overflow-y-auto pb-20">
+          <Card className="rounded-xl overflow-hidden">
+            <CardContent className="p-4 flex items-center justify-between bg-white">
+              <div className="text-center flex-1">
+                <div className="text-3xl font-medium mb-2">{deck.frontExample}</div>
+                <hr className="border-gray-200 my-2" />
+                <div className="text-xl text-muted-foreground">{deck.backExample}</div>
+              </div>
+              <Button variant="ghost" size="icon" className="ml-4 rounded-full bg-gray-100 text-primary">
+                <Play className="w-5 h-5 fill-primary" />
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Tabs defaultValue="description" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 h-10 bg-primary-light-bg rounded-lg p-1">
+              <TabsTrigger value="description" className="text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">Description</TabsTrigger>
+              <TabsTrigger value="reviews" className="text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">Reviews</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="description" className="mt-4">
+              <Card className="rounded-xl bg-white p-0">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={deck.authorAvatar} alt={deck.author} />
+                      <AvatarFallback>{deck.author.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="text-sm font-medium">
+                        {deck.author}
+                        {' '}
+                        (The Author)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-sm text-muted-foreground border-t border-b border-gray-100 py-2">
+                    <span className="flex items-center gap-1">
+                      <Edit3 className="w-4 h-4" />
+                      {' '}
+                      {deck.cardCount}
+                      {' '}
+                      Card
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Share2 className="w-4 h-4" />
+                      {' '}
+                      {deck.language}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {deck.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="reviews" className="mt-4">
+              <Card className="rounded-xl bg-white p-4">
+                <CardContent className="p-0">
+                  <p className="text-center text-muted-foreground">No reviews yet, or placeholder for reviews list.</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 grid grid-cols-2 gap-3">
+          <Button variant="outline" onClick={handleSave}>Save</Button>
+          <Button onClick={handleDownload}>
+            <Download className="w-4 h-4 mr-2" />
+            {' '}
+            Download
+          </Button>
+        </div>
+      </div>
+    </MobileLayout>
+  )
+}
