@@ -1,4 +1,8 @@
+// src/features/edit/EditCardView.tsx
 'use client'
+
+import type { ICardData } from '@/types'
+
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -16,7 +20,7 @@ export function EditCardView({ params }: { params: EditCardParams }) {
   const router = useRouter()
   const { cardId } = params || { cardId: 'sample-card-id' }
   const [isFront, setIsFront] = useState(true)
-  const [cardData, setCardData] = useState({ front: '家族', back: 'Famille' })
+  const [cardData, setCardData] = useState<ICardData>({ front: '家族', back: 'Famille' })
 
   useEffect(() => {
     // Dans une vraie application, récupérer les données de la carte par cardId

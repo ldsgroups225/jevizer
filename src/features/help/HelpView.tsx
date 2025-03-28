@@ -1,4 +1,7 @@
+// src/features/help/HelpView.tsx
 'use client'
+
+import type { IFAQItem } from '@/types'
 
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
@@ -8,7 +11,7 @@ import { ChevronLeft, ChevronRight, FileText, LifeBuoy, Mail, Search, Video } fr
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
-const FAQ_ITEMS = [
+const FAQ_ITEMS: IFAQItem[] = [
   { id: '1', question: 'How do I create a new deck?', answer: 'To create a new deck, tap the + button on the home screen and select Add Deck. Then, give your deck a name and customize it with tags and a description.' },
   { id: '2', question: 'How does spaced repetition work?', answer: 'Spaced repetition is a learning technique that spaces out review of material over time, showing you cards just before you might forget them.' },
   { id: '3', question: 'Can I import decks from Anki?', answer: 'Yes! Go to the Search tab and select Import from Anki.' },

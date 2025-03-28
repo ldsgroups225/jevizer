@@ -1,6 +1,7 @@
+// src/features/interests/InterestCategoryView.tsx
 'use client'
 
-import type { InterestCategory } from '@/types'
+import type { IInterestCategory } from '@/types'
 
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Button } from '@/components/ui/button'
@@ -9,13 +10,14 @@ import { Check } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
-const INTEREST_CATEGORIES: InterestCategory[] = [
+const INTEREST_CATEGORIES: IInterestCategory[] = [
   { id: 'languages', name: 'Langues', icon: '🌎', description: 'Apprenez de nouvelles langues avec des cartes mémoire' },
   { id: 'academic', name: 'Académique', icon: '📚', description: 'Matériel d\'étude pour l\'école et l\'université' },
   { id: 'professional', name: 'Professionnel', icon: '💼', description: 'Connaissances et compétences professionnelles' },
   { id: 'hobbies', name: 'Loisirs', icon: '🎨', description: 'Explorez vos centres d\'intérêt et passions' },
   { id: 'other', name: 'Autre', icon: '✨', description: 'Tout ce que vous souhaitez apprendre' },
 ]
+
 export function InterestCategoryView() {
   const router = useRouter()
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -34,6 +36,7 @@ export function InterestCategoryView() {
       router.push('/')
     }
   }
+
   return (
     <MobileLayout bodyClassName="bg-white">
       {' '}

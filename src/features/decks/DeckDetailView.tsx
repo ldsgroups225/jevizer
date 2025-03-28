@@ -1,4 +1,7 @@
+// src/features/decks/DeckDetailView.tsx
 'use client'
+
+import type { IDeckDetails } from '@/types'
 
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -10,7 +13,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 
 // Données simulées pour démonstration
-const MOCK_DECK = {
+const MOCK_DECK: IDeckDetails = {
   id: 'dk1',
   name: 'Exemple (De 2164 Notes)',
   author: 'Darius Kassi',

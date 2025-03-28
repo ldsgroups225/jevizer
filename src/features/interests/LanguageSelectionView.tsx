@@ -1,5 +1,8 @@
+// src/features/interests/LanguageSelectionView.tsx
 'use client'
+
 import type { ILanguage } from '@/types'
+
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -21,12 +24,12 @@ const LANGUAGES: ILanguage[] = [
   { id: 'ar', name: 'Arabe', flag: '🇸🇦' },
 ]
 
-type Language = typeof LANGUAGES[number]['id']
+type LanguageId = typeof LANGUAGES[number]['id']
 
 export function LanguageSelectionView() {
   const router = useRouter()
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([])
-  const toggleLanguage = (langId: Language) => {
+  const toggleLanguage = (langId: LanguageId) => {
     setSelectedLanguages(
       prev => prev.includes(langId)
         ? prev.filter(id => id !== langId)

@@ -1,7 +1,7 @@
 // src/features/home/HomeView.tsx
 'use client'
 
-import type { Deck } from '@/types'
+import type { IDeck } from '@/types'
 import MobileLayout from '@/components/layout/MobileLayout'
 import { AchievementModal } from '@/components/modals/AchievementModal'
 import { ProgressCircle } from '@/components/progress-circle'
@@ -32,7 +32,7 @@ import React, { useEffect, useState } from 'react'
 import { DeckList } from './components/DeckList'
 
 // Mock data - replace with actual data fetching
-const MOCK_DECKS: Deck[] = [
+const MOCK_DECKS: IDeck[] = [
   { id: '1', title: 'Anglais - Verbes Irréguliers', lastReview: 'Il y a 5 jours', new: 25, learning: 15, reviewing: 60, progress: 75 },
   { id: '2', title: 'SVT - La Cellule Animale et Végétale', lastReview: 'Il y a 2 semaines', new: 40, learning: 10, reviewing: 30, progress: 40 },
   { id: '3', title: 'Histoire - Indépendance de la Côte d\'Ivoire', lastReview: 'Hier', new: 15, learning: 5, reviewing: 20, progress: 85 },
@@ -44,7 +44,7 @@ const MOCK_DECKS: Deck[] = [
   { id: '12', title: 'Mathématiques - Equations du 1er degré', lastReview: 'Il y a 4 jours', new: 22, learning: 18, reviewing: 35, progress: 70 },
 ]
 
-const IMPORTED_DECKS: Deck[] = [
+const IMPORTED_DECKS: IDeck[] = [
   // Ces paquets pourraient être des paquets partagés ou importés sur des sujets plus larges
   { id: '5', title: 'Géographie - Capitales Africaines', lastReview: 'Il y a 1 mois', new: 54, learning: 0, reviewing: 0, progress: 0 },
   { id: '6', title: 'Vocabulaire Anglais pour le Voyage', lastReview: 'Il y a 3 semaines', new: 150, learning: 20, reviewing: 80, progress: 15 },

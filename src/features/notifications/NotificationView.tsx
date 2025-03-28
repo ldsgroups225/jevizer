@@ -1,4 +1,7 @@
+// src/features/notifications/NotificationView.tsx
 'use client'
+
+import type { INotificationItem } from '@/types'
 
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Button } from '@/components/ui/button'
@@ -6,7 +9,7 @@ import { Award, Bell, ChevronLeft, Download, Info } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const MOCK_NOTIFICATIONS = [
+const MOCK_NOTIFICATIONS: INotificationItem[] = [
   { id: '1', type: 'achievement', title: 'Achievement Unlocked', message: 'You have completed a 7-day streak!', time: 'Today', icon: <Award className="h-5 w-5 text-yellow-500" /> },
   { id: '2', type: 'reminder', title: 'Daily Reminder', message: 'Time to practice your Japanese cards', time: 'Yesterday', icon: <Bell className="h-5 w-5 text-blue-500" /> },
   { id: '3', type: 'info', title: 'New Feature', message: 'We have added audio recording to cards!', time: '3 days ago', icon: <Info className="h-5 w-5 text-green-500" /> },

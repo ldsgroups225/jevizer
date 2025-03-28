@@ -1,7 +1,7 @@
 // src/features/search/components/SearchResults.tsx
 'use client'
 
-import type { DeckResult } from '@/types'
+import type { IDeckResult } from '@/types'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -11,8 +11,8 @@ import React from 'react'
 
 interface SearchResultsProps {
   searchTerm: string
-  results: DeckResult[]
-  onDownloadDeck: (deck: DeckResult) => void
+  results: IDeckResult[]
+  onDownloadDeck: (deck: IDeckResult) => void
 }
 
 export function SearchResults({ searchTerm, results, onDownloadDeck }: SearchResultsProps) {

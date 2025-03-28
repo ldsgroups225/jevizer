@@ -1,13 +1,13 @@
 // src/features/profile/components/UserProfile.tsx
 'use client'
 
-import type { Interest, SavedDeck, StudyGoal } from '@/types'
+import type { IInterest, ISavedDeck, IStudyGoal } from '@/types'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress' // Use Progress
-import { BookOpen, Clock, Download, Edit, Star } from 'lucide-react' // Added icons
+import { Progress } from '@/components/ui/progress'
+import { BookOpen, Clock, Download, Edit, Star } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -16,9 +16,9 @@ interface UserProfileProps {
   name: string
   email: string
   avatarUrl?: string
-  studyGoal: StudyGoal
-  interests: Interest[]
-  savedDecks: SavedDeck[]
+  studyGoal: IStudyGoal
+  interests: IInterest[]
+  savedDecks: ISavedDeck[]
 }
 
 export function UserProfile({

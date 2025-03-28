@@ -2,7 +2,7 @@
 'use client'
 
 import type { ChartConfig } from '@/components/ui/chart'
-import type { ChartDataPoint, SummaryStats } from '@/types'
+import type { IChartDataPoint, ISummaryStats } from '@/types'
 
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -11,7 +11,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart' // Assuming chart components are set up
+} from '@/components/ui/chart'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { format } from 'date-fns'
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
@@ -23,14 +23,14 @@ interface StatsOverviewProps {
   studiedCards: number
   studiedTime: string
   currentDate: Date
-  chartData: ChartDataPoint[]
-  summaryStats: SummaryStats
+  chartData: IChartDataPoint[]
+  summaryStats: ISummaryStats
 }
 
 const chartConfig = {
   learned: {
     label: 'Appris',
-    color: 'hsl(var(--chart-1))', // Use CSS variables from globals.css
+    color: 'hsl(var(--chart-1))',
   },
 } satisfies ChartConfig
 

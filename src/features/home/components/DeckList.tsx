@@ -1,7 +1,7 @@
 // src/features/home/components/DeckList.tsx
 'use client'
 
-import type { Deck } from '@/types'
+import type { IDeck } from '@/types'
 import type { LucideProps } from 'lucide-react'
 import type { ForwardRefExoticComponent, MouseEventHandler } from 'react'
 
@@ -12,7 +12,7 @@ import { Edit2Icon, EyeIcon, Settings2Icon } from 'lucide-react'
 import { useState } from 'react'
 
 interface DeckListProps {
-  decks: Deck[]
+  decks: IDeck[]
   onAddDeck?: () => void
 }
 

@@ -1,6 +1,8 @@
 // src/features/search/SearchView.tsx
 'use client'
 
+import type { IDeckResult, ISearchCategory } from '@/types'
+
 import MobileLayout from '@/components/layout/MobileLayout'
 import { DeckDownloadedModal } from '@/components/modals/DeckDownloadedModal'
 import { Button } from '@/components/ui/button'
@@ -13,7 +15,7 @@ import React, { useState } from 'react'
 import { SearchResults } from './components/SearchResults'
 
 // Mock data - replace with actual data fetching
-const MOCK_CATEGORIES = [
+const MOCK_CATEGORIES: ISearchCategory[] = [
   { id: '1', name: 'Japonais', icon: '🇯🇵' },
   { id: '2', name: 'Anglais', icon: '🇺🇸' },
   { id: '3', name: 'Allemand', icon: '🇩🇪' },
@@ -26,7 +28,7 @@ const MOCK_LANGUAGES = [
   { id: '8', name: 'Physique', icon: '⚛️' },
 ]
 
-const MOCK_DECKS = [
+const MOCK_DECKS: IDeckResult[] = [
   { id: 'd1', title: 'Apprendre le Japonais avec les Animes', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
   { id: 'd2', title: 'Les Mots les Plus Appris', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
   { id: 'd3', title: 'Les Règles de Base de la Grammaire Japonaise', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
@@ -42,7 +44,7 @@ export function SearchView() {
 
   // State for the download modal
   const [showDownloadModal, setShowDownloadModal] = useState(false)
-  const [downloadedDeck, setDownloadedDeck] = useState<(typeof MOCK_DECKS)[0] | null>(null)
+  const [downloadedDeck, setDownloadedDeck] = useState<IDeckResult | null>(null)
 
   const handleDownloadDeck = (deck: (typeof MOCK_DECKS)[0]) => {
     // In a real app, this would trigger an API call to download the deck
