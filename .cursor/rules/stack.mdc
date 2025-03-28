@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Optimized Cursor AI IDE Rules for "jeviz" Project
+
+- You can @ files here, like @src/components/ui/Button.tsx
+- You can use markdown but don’t have to
+
+- Use filesystem mcp server to check my dirs and files
+- **Proceed like a senior developer (10x engineer):** Write concise, high-quality TypeScript code with best practices.
+- **Use pnpm package manager:** Run all package commands with pnpm (e.g., `pnpm install`).
+- **Full TypeScript:** Ensure all code is written in TypeScript with strong typing.
+- **The fewer lines the better:** Keep code simple and maintainable with minimal lines.
+
+## After Coding
+
+- Run this command:
+  ```bash
+  rm -f .eslintcache && pnpm lint:fix && pnpm typecheck
+  ```
+- Fix all issues reported @Linter errors.
+- Suggest git commit message with git mcp server
