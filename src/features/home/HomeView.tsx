@@ -1,7 +1,9 @@
 // src/features/home/HomeView.tsx
 'use client'
 
+import type { Deck } from '@/types'
 import MobileLayout from '@/components/layout/MobileLayout'
+import { AchievementModal } from '@/components/modals/AchievementModal' // Import the achievement modal
 import { ProgressCircle } from '@/components/progress-circle' // Use ProgressCircle
 import { Badge } from '@/components/ui/badge' // Use Badge for tags
 import { Button } from '@/components/ui/button'
@@ -26,37 +28,43 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs' 
 import { Menu as MenuIcon, MoreVertical, Plus, RefreshCw, Search } from 'lucide-react' // Added icons
 import Image from 'next/image' // For Logo
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DeckList } from './components/DeckList'
 
 // Mock data - replace with actual data fetching
-const MOCK_DECKS = [
+const MOCK_DECKS: Deck[] = [
   { id: '1', title: 'Japanese Kanji N5', lastReview: '1 Month Ago', new: 50, learning: 20, reviewing: 100, progress: 70 },
   { id: '2', title: 'Japanese Kanji N4', lastReview: '20 Days Ago', new: 50, learning: 20, reviewing: 10, progress: 0 }, // Progress not shown in design for list items initially
   { id: '3', title: '4000 English Words', lastReview: '4 Days Ago', new: 50, learning: 20, reviewing: 10, progress: 0 },
   { id: '4', title: 'Daily English Words', lastReview: '2 Days Ago', new: 50, learning: 20, reviewing: 10, progress: 0 },
 ]
 
-const IMPORTED_DECKS = [
+const IMPORTED_DECKS: Deck[] = [
   { id: '5', title: 'Learn German From Movie', lastReview: '1 Month Ago', new: 50, learning: 20, reviewing: 10, progress: 0 },
   { id: '6', title: '3000 Common Greek Words', lastReview: '1 Month Ago', new: 50, learning: 20, reviewing: 10, progress: 0 },
   { id: '7', title: 'Learn Japanese With Photos', lastReview: '1 Month Ago', new: 50, learning: 20, reviewing: 10, progress: 0 },
 ]
 
-// Define the Deck type to match the structure used
-interface Deck {
-  id: string
-  title: string
-  lastReview: string
-  new: number
-  learning: number
-  reviewing: number
-  progress: number
-}
-
 export function HomeView() {
   const [openSheet, setOpenSheet] = useState(false)
   const router = useRouter()
+  const [showAchievement, setShowAchievement] = useState(false)
+
+  // Show achievement modal on first render
+  useEffect(() => {
+    // In a real app, this would be conditional based on user activity
+    // For example, we would only show this if the user has completed a streak
+    const hasAchievement = Math.random() > 0.5 // Simulate a 50% chance of having an achievement
+
+    if (hasAchievement) {
+      // Add a small delay so the modal appears after the page loads
+      const timer = setTimeout(() => {
+        setShowAchievement(true)
+      }, 1000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [])
 
   const handleContinueLearning = () => {
     router.push('/learning')
@@ -84,7 +92,6 @@ export function HomeView() {
       <div className="p-4 space-y-4">
         {/* Header */}
         <header className="flex items-center justify-between">
-          {/* Replace with actual SVG/Image logo */}
           <div className="flex items-center gap-1">
             <Image src="/logo.svg" alt="Jeviz Logo" width={24} height={24} />
             <span className="text-xl font-bold">jeviz</span>
@@ -164,7 +171,7 @@ export function HomeView() {
             <TabsTrigger value="imported-decks" className="text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">Imported Decks</TabsTrigger>
           </TabsList>
           <TabsContent value="my-decks" className="mt-4">
-            <DeckList decks={MOCK_DECKS as Deck[]} />
+            <DeckList decks={MOCK_DECKS} />
           </TabsContent>
           <TabsContent value="imported-decks" className="mt-4">
             <DeckList decks={IMPORTED_DECKS} />
@@ -210,6 +217,15 @@ export function HomeView() {
           </SheetFooter>
         </SheetContent>
       </Sheet>
+
+      {/* Achievement Modal */}
+      <AchievementModal
+        isOpen={showAchievement}
+        onOpenChange={setShowAchievement}
+        title="7 Day Streak!"
+        description="You've been consistent with your learning for a whole week. Keep it up!"
+        streakDays={7}
+      />
     </MobileLayout>
   )
 }

@@ -4,6 +4,7 @@
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { UserProfile } from './components/UserProfile'
 
@@ -23,13 +24,20 @@ const MOCK_SAVED_DECKS = [
 ]
 
 export function ProfileView() {
+  const router = useRouter()
+  const goBack = () => router.replace('/menu')
+
   return (
     // Use white background for profile content
     <MobileLayout activeTab="menu" bodyClassName="bg-white">
       <div className="p-4">
         {/* Header */}
         <header className="flex items-center mb-4 -ml-2">
-          <Button variant="ghost" size="icon">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={goBack}
+          >
             <ChevronLeft className="w-6 h-6" />
           </Button>
           <h1 className="text-xl font-semibold ml-2">My Profile</h1>

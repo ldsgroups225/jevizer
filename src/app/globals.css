@@ -138,6 +138,14 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Badge Colors */
+  --badge-new-bg: oklch(0.951 0 237); /* light blue */
+  --badge-new-text: oklch(0.685 0.148 237.32); /* sky-500 */
+  --badge-learning-bg: oklch(0.962 0 95.62); /* light orange/amber */
+  --badge-learning-text: oklch(0.769 0 70.08); /* amber-500 */
+  --badge-reviewing-bg: oklch(0.962 0 156.74); /* light green */
+  --badge-reviewing-text: oklch(0.723 0.192 149.58); /* green-500 */
 }
 
 @layer base {

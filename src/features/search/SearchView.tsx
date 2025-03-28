@@ -2,12 +2,14 @@
 'use client'
 
 import MobileLayout from '@/components/layout/MobileLayout'
+import { DeckDownloadedModal } from '@/components/modals/DeckDownloadedModal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 // If needed for filtering results
 import { Menu as MenuIcon, RefreshCw, Search } from 'lucide-react' // Added icons
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 import { SearchResults } from './components/SearchResults'
 
 // Mock data - replace with actual data fetching
@@ -34,8 +36,29 @@ const MOCK_DECKS = [
 ]
 
 export function SearchView() {
-  const [searchTerm, setSearchTerm] = React.useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const hasResults = searchTerm.length > 0 // Simulate having results
+  const router = useRouter()
+
+  // State for the download modal
+  const [showDownloadModal, setShowDownloadModal] = useState(false)
+  const [downloadedDeck, setDownloadedDeck] = useState<(typeof MOCK_DECKS)[0] | null>(null)
+
+  const handleDownloadDeck = (deck: (typeof MOCK_DECKS)[0]) => {
+    // In a real app, this would trigger an API call to download the deck
+    console.log(`Downloading deck: ${deck.title}`)
+
+    // Set the downloaded deck and show the modal
+    setDownloadedDeck(deck)
+    setShowDownloadModal(true)
+  }
+
+  const handleStartLearning = () => {
+    // Navigate to the learning page with the deck ID
+    if (downloadedDeck) {
+      router.push(`/learning?deckId=${downloadedDeck.id}`)
+    }
+  }
 
   return (
     <MobileLayout activeTab="search">
@@ -73,6 +96,7 @@ export function SearchView() {
           <SearchResults
             searchTerm={searchTerm}
             results={MOCK_DECKS} // Pass search results
+            onDownloadDeck={handleDownloadDeck}
           />
         ) : (
           <div className="space-y-6">
@@ -115,6 +139,17 @@ export function SearchView() {
           </div>
         )}
       </div>
+
+      {/* Deck Downloaded Modal */}
+      {downloadedDeck && (
+        <DeckDownloadedModal
+          isOpen={showDownloadModal}
+          onOpenChange={setShowDownloadModal}
+          deckName={downloadedDeck.title}
+          cardCount={downloadedDeck.cards}
+          onStartLearning={handleStartLearning}
+        />
+      )}
     </MobileLayout>
   )
 }

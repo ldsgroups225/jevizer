@@ -1,35 +1,16 @@
 // src/features/profile/components/UserProfile.tsx
 'use client'
 
+import type { Interest, SavedDeck, StudyGoal } from '@/types'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress' // Use Progress
 import { BookOpen, Clock, Download, Edit, Star } from 'lucide-react' // Added icons
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
-
-interface Interest {
-  id: string
-  name: string
-  icon?: React.ReactNode // Can be emoji string or component
-}
-
-interface SavedDeck {
-  id: string
-  title: string
-  downloads: number
-  rating: number
-  cards: number
-  time: number
-  iconUrl?: string
-}
-
-interface StudyGoal {
-  current: number
-  total: number
-  percentage: number
-}
 
 interface UserProfileProps {
   name: string
@@ -48,6 +29,9 @@ export function UserProfile({
   interests,
   savedDecks,
 }: UserProfileProps) {
+  const router = useRouter()
+  const goToEditProfile = () => router.push('/profile/edit')
+
   const getInitials = (name: string) => {
     return name
       .split(' ')
@@ -71,7 +55,12 @@ export function UserProfile({
           </h2>
           <p className="text-sm text-gray-500">{email}</p>
         </div>
-        <Button size="icon" variant="ghost" className="text-gray-500">
+        <Button
+          size="icon"
+          variant="ghost"
+          className="text-muted-foreground"
+          onClick={goToEditProfile}
+        >
           <Edit className="h-5 w-5" />
         </Button>
       </div>

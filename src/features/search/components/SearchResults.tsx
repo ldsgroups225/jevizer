@@ -1,28 +1,21 @@
 // src/features/search/components/SearchResults.tsx
 'use client'
 
+import type { DeckResult } from '@/types'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { BookOpen, Clock, Download, Settings2, Star } from 'lucide-react' // Added icons
 import Image from 'next/image'
 import React from 'react'
 
-interface DeckResult {
-  id: string
-  title: string
-  downloads: number
-  rating: number // Assuming rating is a number like stars count or similar
-  cards: number
-  time: number // Assuming time is in some unit like minutes or seconds
-  iconUrl?: string
-}
-
 interface SearchResultsProps {
   searchTerm: string
   results: DeckResult[]
+  onDownloadDeck: (deck: DeckResult) => void
 }
 
-export function SearchResults({ searchTerm, results }: SearchResultsProps) {
+export function SearchResults({ searchTerm, results, onDownloadDeck }: SearchResultsProps) {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -72,13 +65,23 @@ export function SearchResults({ searchTerm, results }: SearchResultsProps) {
                   <span className="flex items-center">
                     <Clock className="w-3 h-3 mr-1" />
                     {' '}
-                    {deck.time}
+                    {Math.floor(deck.time / 60)}
+                    min
                   </span>
-                  {' '}
-                  {/* Adjust unit display */}
                 </div>
               </div>
-              <Button size="sm" className="ml-auto mt-1 h-8 px-3">See More</Button>
+              <div className="flex flex-col gap-2 ml-auto">
+                <Button size="sm" className="h-8 px-3">See More</Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-8 px-3 flex items-center gap-1"
+                  onClick={() => onDownloadDeck(deck)}
+                >
+                  <Download className="w-3 h-3" />
+                  Download
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>

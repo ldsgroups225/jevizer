@@ -1,9 +1,9 @@
 // src/features/statistics/components/StatsOverview.tsx
 'use client'
 
-import type {
-  ChartConfig,
-} from '@/components/ui/chart'
+import type { ChartConfig } from '@/components/ui/chart'
+import type { ChartDataPoint, SummaryStats } from '@/types'
+
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -17,20 +17,6 @@ import { format } from 'date-fns'
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 import React from 'react'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
-
-interface ChartDataPoint {
-  day: number
-  learned: number
-}
-
-interface SummaryStats {
-  total: number
-  today: number
-  dailyAverage: number
-  dailyStreak: number
-  timeSpent: string
-  cardsLearned: number
-}
 
 interface StatsOverviewProps {
   dueCards: number

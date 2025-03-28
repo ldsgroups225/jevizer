@@ -1,9 +1,9 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next';
+import type { Metadata } from 'next'
+import { cn } from '@/lib/utils' // Import cn
 // Import specific weights if needed, or rely on variable font capabilities
-import { Cairo } from 'next/font/google';
-import './globals.css';
-import { cn } from '@/lib/utils'; // Import cn
+import { Cairo } from 'next/font/google'
+import './globals.css'
 
 // Configure Cairo font
 const cairo = Cairo({
@@ -11,17 +11,17 @@ const cairo = Cairo({
   display: 'swap', // Improve font loading performance
   variable: '--font-cairo-sans', // Use the variable name defined in globals/tailwind
   weight: ['400', '500', '700'],
-});
+})
 
 export const metadata: Metadata = {
   title: 'Jeviz', // Update title if needed
   description: 'Your smart learning partner for BEPC and BAC exams in Ivory Coast',
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="fr">
@@ -30,5 +30,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  );
+  )
 }
