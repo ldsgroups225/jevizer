@@ -1,34 +1,34 @@
-import type { Metadata } from 'next'
-import { Cairo, Cairo_Play } from 'next/font/google'
-import './globals.css'
+// src/app/layout.tsx
+import type { Metadata } from 'next';
+// Import specific weights if needed, or rely on variable font capabilities
+import { Cairo } from 'next/font/google';
+import './globals.css';
+import { cn } from '@/lib/utils'; // Import cn
 
-const cairoSans = Cairo({
-  variable: '--font-cairo-sans',
+// Configure Cairo font
+const cairo = Cairo({
   subsets: ['latin'],
-})
-
-const cairoPlay = Cairo_Play({
-  variable: '--font-cairo-play',
-  subsets: ['latin'],
-})
+  display: 'swap', // Improve font loading performance
+  variable: '--font-cairo-sans', // Use the variable name defined in globals/tailwind
+  weight: ['400', '500', '700'],
+});
 
 export const metadata: Metadata = {
-  title: 'Jeviz',
+  title: 'Jeviz', // Update title if needed
   description: 'Your smart learning partner for BEPC and BAC exams in Ivory Coast',
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="fr">
-      <body
-        className={`${cairoSans.variable} ${cairoPlay.variable} antialiased`}
-      >
+      {/* Apply font variable to the body */}
+      <body className={cn('antialiased font-sans', cairo.variable)}>
         {children}
       </body>
     </html>
-  )
+  );
 }

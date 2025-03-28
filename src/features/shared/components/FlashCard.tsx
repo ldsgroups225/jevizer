@@ -50,13 +50,13 @@ export function FlashCard({
               alt={title}
               width={40}
               height={40}
-              className="rounded bg-gray-100 object-cover" // Basic styling
+              className="rounded-lg bg-muted object-cover"
             />
           </div>
 
           {/* Info */}
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-base truncate">{title}</h3>
+            <h3 className="font-semibold text-medium truncate">{title}</h3>
             <div className="flex items-center text-xs text-gray-500 mt-0.5">
               <Clock className="w-3 h-3 mr-1" />
               <span>
@@ -65,17 +65,17 @@ export function FlashCard({
               </span>
             </div>
             <div className="flex flex-wrap gap-1 mt-1.5">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-[10px] px-1.5 py-0">
+              <Badge variant="new" className="text-[10px] px-1.5 py-0.5">
                 {stats.new}
                 {' '}
                 New
               </Badge>
-              <Badge variant="secondary" className="bg-orange-100 text-orange-700 text-[10px] px-1.5 py-0">
+              <Badge variant="learning" className="text-[10px] px-1.5 py-0.5">
                 {stats.learning}
                 {' '}
                 Learning
               </Badge>
-              <Badge variant="secondary" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0">
+              <Badge variant="reviewing" className="text-[10px] px-1.5 py-0.5">
                 {stats.reviewing}
                 {' '}
                 Reviewing
@@ -90,7 +90,7 @@ export function FlashCard({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="w-7 h-7 text-gray-500"
+                  className="w-7 h-7 text-muted-foreground"
                   onClick={onOptionsClick} // Use the passed handler
                 >
                   <MoreVertical className="w-4 h-4" />
@@ -103,7 +103,7 @@ export function FlashCard({
                 <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="ghost" size="icon" className="w-7 h-7 text-gray-500" onClick={onToggleExpand}>
+            <Button variant="ghost" size="icon" className="w-7 h-7 text-muted-foreground" onClick={onToggleExpand}>
               {expanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
             </Button>
           </div>
@@ -111,7 +111,7 @@ export function FlashCard({
 
         {/* Expanded content */}
         {expanded && children && (
-          <div className="px-3 pb-3 border-t border-gray-100">
+          <div className="px-3 pb-3 border-t border-border">
             {children}
           </div>
         )}
@@ -119,5 +119,3 @@ export function FlashCard({
     </Card>
   )
 }
-
-// Create a placeholder image: public/placeholder-deck.png (e.g., a simple gray square)

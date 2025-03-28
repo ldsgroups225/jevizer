@@ -19,10 +19,10 @@ export function ProgressCircle({
   strokeWidth = 4,
   size = 48,
   baseColor = 'text-gray-200',
-  progressColor = 'text-blue-500',
+  progressColor = 'text-primary',
   showText = true,
   textSize = 'text-sm',
-  textColor = 'text-gray-700 font-semibold',
+  textColor = 'text-muted-foreground font-semibold',
   textSuffix = '%',
   className,
   ...props
