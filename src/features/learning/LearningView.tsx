@@ -15,7 +15,7 @@ export function LearningView() {
 
   const handleShowAnswer = () => setCardState('back')
   const handleRate = (rating: 'again' | 'good' | 'easy') => {
-    console.log('Rated:', rating)
+    console.warn('Rated:', rating)
     // TODO: Add logic to update card state and progress
     setCardState('front') // Move to next card (or show front of next)
     // Example progress update
@@ -32,7 +32,7 @@ export function LearningView() {
             <ChevronLeft className="w-6 h-6" />
           </Button>
           <h1 className="flex-1 text-center text-base font-medium">
-            Japanese Kanji N5
+            Anglais - Verbes Irréguliers
           </h1>
           <Button variant="ghost" size="icon">
             <MoreVertical className="w-5 h-5" />
@@ -43,15 +43,15 @@ export function LearningView() {
         <div className="px-4 py-3 space-y-2">
           <div className="flex justify-between text-xs font-medium text-gray-600">
             <span className="text-blue-600">
-              New:
+              appris:
               {progress.new}
             </span>
             <span className="text-orange-600">
-              Learning:
+              restant:
               {progress.learning}
             </span>
             <span className="text-green-600">
-              Reviewing:
+              à revoir:
               {progress.reviewing}
             </span>
           </div>
@@ -66,8 +66,8 @@ export function LearningView() {
         {/* Learning Card Area */}
         <div className="flex-1 px-4 pb-4 flex flex-col">
           <LearningCard
-            frontContent="子供"
-            backContent="Child"
+            frontContent="to be"
+            backContent="être"
             state={cardState}
             onShowAnswer={handleShowAnswer}
             onRate={handleRate}

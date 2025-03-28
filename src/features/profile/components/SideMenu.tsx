@@ -63,11 +63,11 @@ export function SideMenu({
       <nav className="flex-1 space-y-1">
         <Link href="/profile" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
           <User className="h-5 w-5 text-gray-500" />
-          <span>Profile</span>
+          <span>Profil</span>
         </Link>
         <Link href="/notifications" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
           <Bell className="h-5 w-5 text-gray-500" />
-          <span>Notification</span>
+          <span>Notifications</span>
         </Link>
 
         {/* Dark Mode Toggle */}
@@ -77,23 +77,23 @@ export function SideMenu({
         >
           <div className="flex items-center gap-4">
             <Moon className="h-5 w-5 text-gray-500" />
-            <span>Dark Mood</span>
+            <span>Mode Sombre</span>
           </div>
           <Switch
             checked={darkMode}
             onCheckedChange={onToggleDarkMode}
-            aria-label="Toggle dark mode"
+            aria-label="Activer le mode sombre"
             onClick={e => e.stopPropagation()} // Prevent row click handler
           />
         </div>
 
         <Link href="/help" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
           <HelpCircle className="h-5 w-5 text-gray-500" />
-          <span>Help Center</span>
+          <span>Centre d'Aide</span>
         </Link>
         <Link href="/support" className="flex items-center gap-4 p-3 h-12 hover:bg-gray-100 rounded-lg text-base text-gray-700 font-medium">
           <Settings className="h-5 w-5 text-gray-500" />
-          <span>Support Ankidroid</span>
+          <span>Support Jeviz</span>
         </Link>
       </nav>
 
@@ -103,7 +103,7 @@ export function SideMenu({
         className="justify-start gap-4 p-3 h-12 text-red-500 hover:bg-red-50 hover:text-red-600 mt-6 text-base font-medium"
       >
         <LogOut className="h-5 w-5" />
-        Log Out
+        Se déconnecter
       </Button>
     </div>
   )

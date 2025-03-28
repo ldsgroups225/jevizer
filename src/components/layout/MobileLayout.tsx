@@ -14,12 +14,12 @@ interface MobileLayoutProps {
 }
 
 const navItems = [
-  { href: '/', label: 'Home', icon: Home, key: 'home' },
-  { href: '/learning', label: 'Learning', icon: BookOpen, key: 'learning' },
-  { href: '/search', label: 'Search', icon: Search, key: 'search' },
+  { href: '/', label: 'Accueil', icon: Home, key: 'home' },
+  { href: '/learning', label: 'Révisions', icon: BookOpen, key: 'learning' },
+  { href: '/search', label: 'Rechercher', icon: Search, key: 'search' },
   {
     href: '/statistics',
-    label: 'Statistics',
+    label: 'Stats',
     icon: BarChart3,
     key: 'statistics',
   },

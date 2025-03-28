@@ -9,23 +9,23 @@ import { Bookmark, ChevronLeft, Download, Edit3, Play, Share2 } from 'lucide-rea
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-// Mock data for demonstration
+// Données simulées pour démonstration
 const MOCK_DECK = {
   id: 'dk1',
-  name: 'Sample (From 2164 Notes)',
-  author: 'Ahmed Ashraf',
+  name: 'Exemple (De 2164 Notes)',
+  author: 'Darius Kassi',
   authorAvatar: '/avatar-placeholder.png',
   cardCount: 2000,
-  language: 'English',
-  description: 'This Is A Deck Including All 2200 Kanji Of The Book Remembering The Kanji 1, 6th Edition, By James W. Heisig. I Was Going To Study This Book And Thought Using Anki With It Would Be Perfect, But Lazy As I Was, I Looked For Shared Decks. I Quickly Figured Out That Many Of The Decks Weren\'t Complete, Didn\'t Suit My Taste, Or Was From An Older Edition. So I Decided To Create This Deck. The Deck Doesn\'t Contain The Primitive Elements That Are Not Themselves Kanji.',
+  language: 'Anglais',
+  description: 'Ceci est un paquet qui comprend tous les 2200 Kanji du livre \'Remembering The Kanji 1, 6ème édition\', par James W. Heisig. Je voulais étudier ce livre et j\'ai pensé qu\'utiliser Jeviz serait parfait. En cherchant des paquets partagés, j\'ai rapidement constaté que beaucoup de paquets n\'étaient pas complets, ne correspondaient pas à mes goûts, ou étaient d\'une ancienne édition. J\'ai donc décidé de créer ce paquet. Le paquet ne contient pas les éléments primitifs qui ne sont pas eux-mêmes des Kanji.',
   reviews: [],
-  frontExample: '家族',
-  backExample: 'Family',
+  frontExample: 'Family',
+  backExample: 'Famille',
   audioUrl: '/audio-placeholder.mp3',
 }
 
 export function DeckDetailView({ deckId }: { deckId: string }) {
-  // In a real app, fetch deck data based on deckId
+  // Dans une vraie application, récupérer les données du paquet basées sur deckId
   const deck = MOCK_DECK
   const router = useRouter()
 
@@ -34,20 +34,18 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
   }
 
   const handleBookmark = () => {
-    // Toggle bookmark functionality would be implemented here
-    // For now, just log a message
-    console.log('Toggling bookmark for deck:', deckId)
+    // La fonctionnalité de favoris serait implémentée ici
+    console.warn('Ajout/Retrait des favoris pour le paquet:', deckId)
   }
 
   const handleSave = () => {
-    // Save deck functionality would be implemented here
-    // For now, just log a message
-    console.log('Saving deck to collection:', deckId)
+    // La fonctionnalité de sauvegarde serait implémentée ici
+    console.warn('Sauvegarde du paquet dans la collection:', deckId)
   }
 
   const handleDownload = () => {
-    // Download deck functionality would be implemented here
-    // Then navigate to home
+    // La fonctionnalité de téléchargement serait implémentée ici
+    // Puis navigation vers l'accueil
     router.push('/')
   }
 
@@ -59,7 +57,7 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
             <ChevronLeft className="w-6 h-6" />
           </Button>
           <h1 className="flex-1 text-center text-base font-medium">
-            The Name Of The Deck
+            Le Nom du Paquet
           </h1>
           <Button variant="ghost" size="icon" className="text-white hover:bg-primary-darker" onClick={handleBookmark}>
             <Bookmark className="w-5 h-5" />
@@ -83,7 +81,7 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
           <Tabs defaultValue="description" className="w-full">
             <TabsList className="grid w-full grid-cols-2 h-10 bg-primary-light-bg rounded-lg p-1">
               <TabsTrigger value="description" className="text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">Description</TabsTrigger>
-              <TabsTrigger value="reviews" className="text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">Reviews</TabsTrigger>
+              <TabsTrigger value="reviews" className="text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">Avis</TabsTrigger>
             </TabsList>
 
             <TabsContent value="description" className="mt-4">
@@ -98,7 +96,7 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
                       <p className="text-sm font-medium">
                         {deck.author}
                         {' '}
-                        (The Author)
+                        (L'Auteur)
                       </p>
                     </div>
                   </div>
@@ -108,7 +106,7 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
                       {' '}
                       {deck.cardCount}
                       {' '}
-                      Card
+                      cartes
                     </span>
                     <span className="flex items-center gap-1">
                       <Share2 className="w-4 h-4" />
@@ -126,7 +124,7 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
             <TabsContent value="reviews" className="mt-4">
               <Card className="rounded-xl bg-white p-4">
                 <CardContent className="p-0">
-                  <p className="text-center text-muted-foreground">No reviews yet, or placeholder for reviews list.</p>
+                  <p className="text-center text-muted-foreground">Pas encore d'avis, ou espace réservé pour la liste des avis.</p>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -134,11 +132,10 @@ export function DeckDetailView({ deckId }: { deckId: string }) {
         </div>
 
         <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 grid grid-cols-2 gap-3">
-          <Button variant="outline" onClick={handleSave}>Save</Button>
+          <Button variant="outline" onClick={handleSave}>Sauvegarder</Button>
           <Button onClick={handleDownload}>
             <Download className="w-4 h-4 mr-2" />
-            {' '}
-            Download
+            Télécharger
           </Button>
         </div>
       </div>

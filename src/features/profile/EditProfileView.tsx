@@ -15,9 +15,9 @@ export function EditProfileView() {
   const goBack = () => router.replace('/profile')
 
   const [formData, setFormData] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    bio: 'I am learning Japanese and Spanish',
+    name: 'Sarah Mohamed',
+    email: 'sarah.mohamed@exemple.com',
+    bio: 'J\'apprends le japonais et l\'espagnol',
     avatarUrl: '/avatar-placeholder.png',
   })
 
@@ -27,8 +27,8 @@ export function EditProfileView() {
   }
 
   const handleSave = () => {
-    // In a real app, save data to backend
-    // For now, just navigate back to profile
+    // Dans une vraie application, sauvegarder les données vers le backend
+    // Pour l'instant, retourner simplement au profil
     goBack()
   }
 
@@ -39,7 +39,7 @@ export function EditProfileView() {
           <Button variant="ghost" size="icon" onClick={goBack}>
             <ChevronLeft className="w-6 h-6" />
           </Button>
-          <h1 className="flex-1 text-center text-base font-medium">Edit Profile</h1>
+          <h1 className="flex-1 text-center text-base font-medium">Modifier le Profil</h1>
           <div className="w-10" />
         </header>
         <div className="p-6 space-y-6 flex-1 overflow-y-auto">
@@ -61,12 +61,12 @@ export function EditProfileView() {
             </div>
             <div className="space-y-6 w-full mt-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Your name" />
+                <Label htmlFor="name">Nom</Label>
+                <Input id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Votre nom" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="Your email" />
+                <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="Votre email" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="bio">Bio</Label>
@@ -75,14 +75,14 @@ export function EditProfileView() {
                   name="bio"
                   value={formData.bio}
                   onChange={handleInputChange}
-                  placeholder="Tell us about yourself"
+                  placeholder="Parlez-nous de vous"
                   className="resize-none h-24"
                 />
               </div>
             </div>
           </div>
           <div className="py-4 px-6 border-t">
-            <Button className="w-full" onClick={handleSave}>Save Changes</Button>
+            <Button className="w-full" onClick={handleSave}>Enregistrer les modifications</Button>
           </div>
         </div>
       </div>

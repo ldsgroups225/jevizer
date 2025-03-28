@@ -22,14 +22,14 @@ export function SearchResults({ searchTerm, results, onDownloadDeck }: SearchRes
         <h2 className="text-base font-semibold">
           {results.length}
           {' '}
-          Results for "
+          Résultats pour "
           {searchTerm}
           "
         </h2>
         <Button variant="ghost" size="sm" className="text-gray-600">
           <Settings2 className="w-4 h-4 mr-1" />
           {' '}
-          Modified
+          Modifié
         </Button>
       </div>
 
@@ -71,7 +71,7 @@ export function SearchResults({ searchTerm, results, onDownloadDeck }: SearchRes
                 </div>
               </div>
               <div className="flex flex-col gap-2 ml-auto">
-                <Button size="sm" className="h-8 px-3">See More</Button>
+                <Button size="sm" className="h-8 px-3">Voir Plus</Button>
                 <Button
                   size="sm"
                   variant="outline"
@@ -79,7 +79,7 @@ export function SearchResults({ searchTerm, results, onDownloadDeck }: SearchRes
                   onClick={() => onDownloadDeck(deck)}
                 >
                   <Download className="w-3 h-3" />
-                  Download
+                  Télécharger
                 </Button>
               </div>
             </div>

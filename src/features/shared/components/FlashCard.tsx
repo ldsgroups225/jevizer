@@ -62,7 +62,8 @@ export function FlashCard({
             <div className="flex items-center text-xs text-gray-500 mt-0.5">
               <Clock className="w-3 h-3 mr-1" />
               <span>
-                Last Review
+                révisé:
+                {' '}
                 {lastReview}
               </span>
             </div>
@@ -70,17 +71,17 @@ export function FlashCard({
               <Badge variant="new" className="bg-blue-100 text-blue-700 text-[10px] px-1.5 -py-1">
                 {stats.new}
                 {' '}
-                New
+                appris
               </Badge>
               <Badge variant="learning" className="bg-orange-100 text-orange-700 text-[10px] px-1.5 -py-1">
                 {stats.learning}
                 {' '}
-                Learning
+                restant
               </Badge>
               <Badge variant="reviewing" className="bg-green-100 text-green-700 text-[10px] px-1.5 -py-1">
                 {stats.reviewing}
                 {' '}
-                Reviewing
+                à revoir
               </Badge>
             </div>
           </div>

@@ -29,7 +29,7 @@ interface StatsOverviewProps {
 
 const chartConfig = {
   learned: {
-    label: 'Learned',
+    label: 'Appris',
     color: 'hsl(var(--chart-1))', // Use CSS variables from globals.css
   },
 } satisfies ChartConfig
@@ -47,29 +47,29 @@ export function StatsOverview({
   )
   const [displayMonth, setDisplayMonth] = React.useState<Date>(currentDate)
 
-  // Find today's data point for the chart tooltip default
-  const todayData = chartData.find(d => d.day === currentDate.getDate())
+  // Add underscore to indicate intentionally unused variable
+  const _todayData = chartData.find(d => d.day === currentDate.getDate())
 
   return (
     <div className="space-y-4">
       {/* Overview Cards */}
       <Card className="bg-white rounded-xl p-0">
         <CardHeader className="px-4 pt-4 pb-2">
-          <CardTitle className="text-base font-semibold">Overview</CardTitle>
+          <CardTitle className="text-base font-semibold">Vue d'ensemble</CardTitle>
         </CardHeader>
         <CardContent className="px-4 pb-4 grid grid-cols-2 gap-3">
           <div className="bg-gray-50 rounded-lg p-4 text-center border border-gray-100">
-            <p className="text-xs text-gray-500 mb-1">Due Cards</p>
+            <p className="text-xs text-gray-500 mb-1">Cartes à réviser</p>
             <p className="text-2xl font-bold text-gray-800">{dueCards}</p>
-            <p className="text-xs text-gray-500 mt-1">Cards Today</p>
+            <p className="text-xs text-gray-500 mt-1">Cartes aujourd'hui</p>
           </div>
           <div className="bg-gray-50 rounded-lg p-4 text-center border border-gray-100">
-            <p className="text-xs text-gray-500 mb-1">Studied Cards</p>
+            <p className="text-xs text-gray-500 mb-1">Cartes étudiées</p>
             <p className="text-2xl font-bold text-gray-800">{studiedCards}</p>
             <p className="text-xs text-gray-500 mt-1">
               {studiedTime}
               {' '}
-              Today
+              aujourd'hui
             </p>
           </div>
         </CardContent>
@@ -131,10 +131,10 @@ export function StatsOverview({
           <Tabs defaultValue="learned" className="w-full">
             <div className="flex justify-between items-center mb-2">
               <TabsList className="bg-gray-100 h-8 p-0.5">
-                <TabsTrigger value="all" className="text-xs px-2 h-7 data-[state=active]:bg-white">All</TabsTrigger>
-                <TabsTrigger value="learned" className="text-xs px-2 h-7 data-[state=active]:bg-white">Learned</TabsTrigger>
-                <TabsTrigger value="review" className="text-xs px-2 h-7 data-[state=active]:bg-white">Review Count</TabsTrigger>
-                <TabsTrigger value="intervals" className="text-xs px-2 h-7 data-[state=active]:bg-white">Intervals</TabsTrigger>
+                <TabsTrigger value="all" className="text-xs px-2 h-7 data-[state=active]:bg-white">Tout</TabsTrigger>
+                <TabsTrigger value="learned" className="text-xs px-2 h-7 data-[state=active]:bg-white">Appris</TabsTrigger>
+                <TabsTrigger value="review" className="text-xs px-2 h-7 data-[state=active]:bg-white">Révisions</TabsTrigger>
+                <TabsTrigger value="intervals" className="text-xs px-2 h-7 data-[state=active]:bg-white">Intervalles</TabsTrigger>
               </TabsList>
               <Button variant="ghost" size="icon" className="h-7 w-7 text-gray-500">
                 <MoreHorizontal className="w-4 h-4" />
@@ -176,31 +176,31 @@ export function StatsOverview({
                   <p className="font-semibold text-gray-800">{summaryStats.total}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500">Today</p>
+                  <p className="text-gray-500">Aujourd'hui</p>
                   <p className="font-semibold text-gray-800">{summaryStats.today}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500">Daily Average</p>
+                  <p className="text-gray-500">Moyenne quotidienne</p>
                   <p className="font-semibold text-gray-800">{summaryStats.dailyAverage}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500">Daily Streak</p>
+                  <p className="text-gray-500">Série quotidienne</p>
                   <p className="font-semibold text-gray-800">{summaryStats.dailyStreak}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500">Time Spent</p>
+                  <p className="text-gray-500">Temps passé</p>
                   <p className="font-semibold text-gray-800">{summaryStats.timeSpent}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500">Cards Learned</p>
+                  <p className="text-gray-500">Cartes apprises</p>
                   <p className="font-semibold text-gray-800">{summaryStats.cardsLearned}</p>
                 </div>
               </div>
             </TabsContent>
             {/* Add TabsContent for other tabs (all, review, intervals) */}
-            <TabsContent value="all"><p className="text-center text-gray-500 py-8">All Stats View</p></TabsContent>
-            <TabsContent value="review"><p className="text-center text-gray-500 py-8">Review Count View</p></TabsContent>
-            <TabsContent value="intervals"><p className="text-center text-gray-500 py-8">Intervals View</p></TabsContent>
+            <TabsContent value="all"><p className="text-center text-gray-500 py-8">Vue d'ensemble des statistiques</p></TabsContent>
+            <TabsContent value="review"><p className="text-center text-gray-500 py-8">Vue des révisions</p></TabsContent>
+            <TabsContent value="intervals"><p className="text-center text-gray-500 py-8">Vue des intervalles</p></TabsContent>
           </Tabs>
         </CardContent>
       </Card>

@@ -37,12 +37,12 @@ export function DeckList({ decks, onAddDeck }: DeckListProps) {
             onToggleExpand={() => toggleExpand(deck.id)}
             onOptionsClick={e => e.stopPropagation()}
           >
-            {/* Content shown when expanded */}
+            {/* Contenu affiché lorsque développé */}
             <div className="bg-gray-50 inset-0">
               <div className="pt-2">
-                <DeckStatItem label="Duo Today" value={deck.duoToday?.toString() ?? '0'} />
-                <DeckStatItem label="Studied Today" value={deck.studiedToday?.toString() ?? '0'} />
-                <DeckStatItem label="New cards" value={deck.newCards?.toString() ?? '0'} />
+                <DeckStatItem label="Dû aujourd'hui" value={deck.duoToday?.toString() ?? '0'} />
+                <DeckStatItem label="Étudié aujourd'hui" value={deck.studiedToday?.toString() ?? '0'} />
+                <DeckStatItem label="Nouvelles cartes" value={deck.newCards?.toString() ?? '0'} />
               </div>
 
               <Separator />
@@ -50,21 +50,21 @@ export function DeckList({ decks, onAddDeck }: DeckListProps) {
               <div className="flex justify-between items-center pt-2">
                 <CardQuickAction
                   icon={EyeIcon}
-                  label="View"
-                  onClick={() => console.warn('Wanted to view deck')}
+                  label="Voir"
+                  onClick={() => console.warn('Voulu voir le paquet')}
                 />
                 <CardQuickAction
                   icon={Edit2Icon}
-                  label="Edit"
-                  onClick={() => console.warn('Wanted to edit deck')}
+                  label="Modifier"
+                  onClick={() => console.warn('Voulu modifier le paquet')}
                 />
                 <CardQuickAction
                   icon={Settings2Icon}
                   label="Options"
-                  onClick={() => console.warn('Wanted to view options')}
+                  onClick={() => console.warn('Voulu voir les options')}
                 />
 
-                <Button size="sm" className="h-7 px-10">Learn</Button>
+                <Button size="sm" className="h-7 px-10">Apprendre</Button>
               </div>
             </div>
           </FlashCard>
@@ -92,7 +92,7 @@ function DeckStatItem({
         {value}
       </span>
       <span>
-        cards
+        cartes
       </span>
     </div>
   )

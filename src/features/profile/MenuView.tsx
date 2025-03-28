@@ -7,23 +7,23 @@ import { SideMenu } from './components/SideMenu'
 
 export function MenuView() {
   const [darkMode, setDarkMode] = useState(false)
-  // In a real app, you'd likely use next-themes or similar
-  // and get the theme state from context.
+  // Dans une vraie application, vous utiliseriez probablement next-themes ou similaire
+  // et obtiendriez l'état du thème depuis le contexte.
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
-    // Add logic to actually change the theme (e.g., using next-themes `setTheme`)
+    // Ajouter la logique pour changer réellement le thème (par exemple, en utilisant next-themes `setTheme`)
     // document.documentElement.classList.toggle('dark', !darkMode);
   }
 
   return (
-    // Use white background for the menu content area
+    // Utiliser un fond blanc pour la zone de contenu du menu
     <MobileLayout activeTab="menu" bodyClassName="bg-white">
-      {/* The SideMenu component itself will fill the height */}
+      {/* Le composant SideMenu lui-même remplira la hauteur */}
       <SideMenu
         username="Sarah Mohamed"
-        email="Sarahmohamed23@Gamil.Com" // Add email
-        avatarUrl="/avatar-placeholder.png" // Add placeholder
+        email="Sarahmohamed23@Gamil.Com"
+        avatarUrl="/avatar-placeholder.png"
         darkMode={darkMode}
         onToggleDarkMode={toggleDarkMode}
       />
@@ -31,4 +31,4 @@ export function MenuView() {
   )
 }
 
-// Create public/avatar-placeholder.png (e.g., a simple user icon or colored circle)
+// Créer public/avatar-placeholder.png (par exemple, une icône d'utilisateur simple ou un cercle coloré)

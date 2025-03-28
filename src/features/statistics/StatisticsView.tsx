@@ -15,7 +15,7 @@ export function StatisticsView() {
         {/* Header */}
         <header className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <Image src="/logo.svg" alt="Jeviz Logo" width={24} height={24} />
+            <Image src="/logo.svg" alt="Logo Jeviz" width={24} height={24} />
             <span className="text-xl font-bold">jeviz</span>
           </div>
           <div className="flex items-center gap-2">
@@ -29,13 +29,13 @@ export function StatisticsView() {
           </div>
         </header>
 
-        <h1 className="text-xl font-semibold">Statistics</h1>
+        <h1 className="text-xl font-semibold">Statistiques</h1>
         <StatsOverview
           dueCards={261}
           studiedCards={127}
           studiedTime="69 Minutes"
-          currentDate={new Date(2023, 5, 20)} // June 20, 2023
-          chartData={[ // Example data structure
+          currentDate={new Date(2023, 5, 20)} // 20 Juin 2023
+          chartData={[ // Structure de données exemple
             { day: 1, learned: 10 },
             { day: 2, learned: 15 },
             { day: 3, learned: 5 },

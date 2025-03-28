@@ -8,19 +8,19 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { UserProfile } from './components/UserProfile'
 
-// Mock data - replace with actual data fetching
+// Données simulées - à remplacer par une vraie récupération de données
 const MOCK_INTERESTS = [
-  { id: '1', name: 'Japanese', icon: '🇯🇵' },
-  { id: '2', name: 'English', icon: '🇺🇸' },
-  { id: '3', name: 'German', icon: '🇩🇪' },
+  { id: '1', name: 'Japonais', icon: '🇯🇵' },
+  { id: '2', name: 'Anglais', icon: '🇺🇸' },
+  { id: '3', name: 'Allemand', icon: '🇩🇪' },
   // Add more if needed based on design, or handle dynamically
 ]
 
 const MOCK_SAVED_DECKS = [
-  { id: 's1', title: 'N3 Words - Japanese', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
-  { id: 's2', title: 'Most Known Words', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
-  { id: 's3', title: 'Hiragana And Katakana', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
-  { id: 's4', title: 'Hiragana And Katakana', downloads: 2639, rating: 342, cards: 2106, time: 1200 }, // Duplicate example
+  { id: 's1', title: 'N3 Mots - Japonais', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
+  { id: 's2', title: 'Mots les Plus Connus', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
+  { id: 's3', title: 'Hiragana et Katakana', downloads: 2639, rating: 342, cards: 2106, time: 1200 },
+  { id: 's4', title: 'Hiragana et Katakana', downloads: 2639, rating: 342, cards: 2106, time: 1200 }, // Duplicate example
 ]
 
 export function ProfileView() {
@@ -40,7 +40,7 @@ export function ProfileView() {
           >
             <ChevronLeft className="w-6 h-6" />
           </Button>
-          <h1 className="text-xl font-semibold ml-2">My Profile</h1>
+          <h1 className="text-xl font-semibold ml-2">Mon Profil</h1>
         </header>
 
         <UserProfile
