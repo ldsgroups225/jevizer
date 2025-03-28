@@ -1,27 +1,56 @@
-'use client'; import MobileLayout from '@/components/layout/MobileLayout'; import { Button } from '@/components/ui/button'; import { Card } from '@/components/ui/card'; import { Check } from 'lucide-react'; import { useRouter } from 'next/navigation'; import React, { useState } from 'react'
+'use client'
 
-const INTEREST_CATEGORIES = [{ id: 'languages', name: 'Languages', icon: '🌎', description: 'Learn new languages through flashcards' }, { id: 'academic', name: 'Academic', icon: '📚', description: 'Study materials for school and university' }, { id: 'professional', name: 'Professional', icon: '💼', description: 'Career-related knowledge and skills' }, { id: 'hobbies', name: 'Hobbies', icon: '🎨', description: 'Explore your interests and passions' }, { id: 'other', name: 'Other', icon: '✨', description: 'Everything else you want to learn' }]
+import type { InterestCategory } from '@/types'
+
+import MobileLayout from '@/components/layout/MobileLayout'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Check } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+
+const INTEREST_CATEGORIES: InterestCategory[] = [
+  { id: 'languages', name: 'Langues', icon: '🌎', description: 'Apprenez de nouvelles langues avec des cartes mémoire' },
+  { id: 'academic', name: 'Académique', icon: '📚', description: 'Matériel d\'étude pour l\'école et l\'université' },
+  { id: 'professional', name: 'Professionnel', icon: '💼', description: 'Connaissances et compétences professionnelles' },
+  { id: 'hobbies', name: 'Loisirs', icon: '🎨', description: 'Explorez vos centres d\'intérêt et passions' },
+  { id: 'other', name: 'Autre', icon: '✨', description: 'Tout ce que vous souhaitez apprendre' },
+]
 export function InterestCategoryView() {
-  const router = useRouter(); const [selectedCategories, setSelectedCategories] = useState([]); const toggleCategory = (categoryId) => { setSelectedCategories(prev => prev.includes(categoryId) ? prev.filter(id => id !== categoryId) : [...prev, categoryId]) }
+  const router = useRouter()
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories(
+      prev => prev.includes(categoryId)
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId],
+    )
+  }
   const handleContinue = () => {
-    if (selectedCategories.includes('languages')) { router.push('/interests/language') }
-    else { router.push('/') }
-  }; return (
+    if (selectedCategories.includes('languages')) {
+      router.push('/interests/language')
+    }
+    else {
+      router.push('/')
+    }
+  }
+  return (
     <MobileLayout bodyClassName="bg-white">
       {' '}
       <div className="flex flex-col h-full p-6">
         <div className="text-center mb-8">
           {' '}
-          <h1 className="text-2xl font-bold mb-2">What are you interested in?</h1>
+          <h1 className="text-2xl font-bold mb-2">Qu'est-ce qui vous intéresse ?</h1>
           {' '}
-          <p className="text-gray-600">Select all that apply</p>
+          <p className="text-gray-600">Sélectionnez tout ce qui s'applique</p>
           {' '}
         </div>
         {' '}
         <div className="space-y-4 mb-8">
           {' '}
           {INTEREST_CATEGORIES.map((category) => {
-            const isSelected = selectedCategories.includes(category.id); return (
+            const isSelected = selectedCategories.includes(category.id)
+            return (
               <Card key={category.id} className={`p-4 cursor-pointer transition-colors ${isSelected ? 'bg-primary-light-bg border-primary' : 'hover:bg-gray-50'}`} onClick={() => toggleCategory(category.id)}>
                 <div className="flex items-center gap-4">
                   {' '}
@@ -50,7 +79,7 @@ export function InterestCategoryView() {
         </div>
         <div className="mt-auto">
           {' '}
-          <Button className="w-full" disabled={selectedCategories.length === 0} onClick={handleContinue}> Continue </Button>
+          <Button className="w-full" disabled={selectedCategories.length === 0} onClick={handleContinue}> Continuer </Button>
           {' '}
         </div>
       </div>

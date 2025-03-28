@@ -1,8 +1,27 @@
-'use client'; import MobileLayout from '@/components/layout/MobileLayout'; import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'; import { Button } from '@/components/ui/button'; import { Input } from '@/components/ui/input'; import { ChevronLeft, ChevronRight, FileText, LifeBuoy, Mail, Search, Video } from 'lucide-react'; import { useRouter } from 'next/navigation'; import React, { useState } from 'react'
+'use client'
 
-const FAQ_ITEMS = [{ id: '1', question: 'How do I create a new deck?', answer: 'To create a new deck, tap the + button on the home screen and select Add Deck. Then, give your deck a name and customize it with tags and a description.' }, { id: '2', question: 'How does spaced repetition work?', answer: 'Spaced repetition is a learning technique that spaces out review of material over time, showing you cards just before you might forget them.' }, { id: '3', question: 'Can I import decks from Anki?', answer: 'Yes! Go to the Search tab and select Import from Anki.' }]
+import MobileLayout from '@/components/layout/MobileLayout'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { ChevronLeft, ChevronRight, FileText, LifeBuoy, Mail, Search, Video } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+
+const FAQ_ITEMS = [
+  { id: '1', question: 'How do I create a new deck?', answer: 'To create a new deck, tap the + button on the home screen and select Add Deck. Then, give your deck a name and customize it with tags and a description.' },
+  { id: '2', question: 'How does spaced repetition work?', answer: 'Spaced repetition is a learning technique that spaces out review of material over time, showing you cards just before you might forget them.' },
+  { id: '3', question: 'Can I import decks from Anki?', answer: 'Yes! Go to the Search tab and select Import from Anki.' },
+]
+
 export function HelpView() {
-  const router = useRouter(); const [searchQuery, setSearchQuery] = useState(''); const handleBack = () => { router.back() }; return (
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState('')
+  const handleBack = () => {
+    router.back()
+  }
+
+  return (
     <MobileLayout bodyClassName="bg-white">
       {' '}
       <div className="flex flex-col h-full">

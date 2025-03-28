@@ -1,11 +1,17 @@
-'use client'; import { Button } from '@/components/ui/button'; import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'; import { BookOpen, Clock, Download } from 'lucide-react'; import React from 'react'
+'use client'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { BookOpen, Clock, Download } from 'lucide-react'
+import React from 'react'
 
 interface DeckDownloadedModalProps { isOpen: boolean, onOpenChange: (open: boolean) => void, deckName?: string, cardCount?: number, onStartLearning?: () => void }
 export function DeckDownloadedModal({ isOpen, onOpenChange, deckName = 'Japanese N5 Kanji', cardCount = 500, onStartLearning }: DeckDownloadedModalProps) {
   const handleStartLearning = () => {
-    onOpenChange(false); if (onStartLearning)
+    onOpenChange(false)
+    if (onStartLearning)
       onStartLearning()
-  }; return (
+  }
+  return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       {' '}
       <DialogContent className="sm:max-w-md">

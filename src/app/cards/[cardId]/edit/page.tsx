@@ -1,3 +1,5 @@
 import { EditCardView } from '@/features/edit/EditCardView'
 
-export default function EditCardPage({ params }) { return <EditCardView params={params} /> }
+export default function EditCardPage({ params }: { params: { cardId: string } }) {
+  return <EditCardView params={params} />
+}

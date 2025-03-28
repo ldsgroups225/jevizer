@@ -33,7 +33,7 @@ export function ProgressCircle({
   const center = size / 2
 
   return (
-    <div className={cn('relative flex items-center justify-center', className)} style={{ width: size, height: size }}>
+    <div className={cn('relative flex items-center justify-center', className, props)} style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="absolute inset-0">
         <circle
           className={cn('stroke-current', baseColor)}

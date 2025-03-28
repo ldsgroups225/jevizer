@@ -2,7 +2,6 @@
 import MobileLayout from '@/components/layout/MobileLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Bold, ChevronLeft, Edit3, Eye, Image as ImageIcon, Italic, Mic, Trash2, Underline } from 'lucide-react'

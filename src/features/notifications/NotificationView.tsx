@@ -1,8 +1,25 @@
-'use client'; import MobileLayout from '@/components/layout/MobileLayout'; import { Button } from '@/components/ui/button'; import { Award, Bell, ChevronLeft, Download, Info } from 'lucide-react'; import { useRouter } from 'next/navigation'; import React from 'react'
+'use client'
 
-const MOCK_NOTIFICATIONS = [{ id: '1', type: 'achievement', title: 'Achievement Unlocked', message: 'You have completed a 7-day streak!', time: 'Today', icon: <Award className="h-5 w-5 text-yellow-500" /> }, { id: '2', type: 'reminder', title: 'Daily Reminder', message: 'Time to practice your Japanese cards', time: 'Yesterday', icon: <Bell className="h-5 w-5 text-blue-500" /> }, { id: '3', type: 'info', title: 'New Feature', message: 'We have added audio recording to cards!', time: '3 days ago', icon: <Info className="h-5 w-5 text-green-500" /> }, { id: '4', type: 'download', title: 'Download Complete', message: 'Japanese N5 Kanji deck is ready to use', time: '1 week ago', icon: <Download className="h-5 w-5 text-purple-500" /> }]
+import MobileLayout from '@/components/layout/MobileLayout'
+import { Button } from '@/components/ui/button'
+import { Award, Bell, ChevronLeft, Download, Info } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+
+const MOCK_NOTIFICATIONS = [
+  { id: '1', type: 'achievement', title: 'Achievement Unlocked', message: 'You have completed a 7-day streak!', time: 'Today', icon: <Award className="h-5 w-5 text-yellow-500" /> },
+  { id: '2', type: 'reminder', title: 'Daily Reminder', message: 'Time to practice your Japanese cards', time: 'Yesterday', icon: <Bell className="h-5 w-5 text-blue-500" /> },
+  { id: '3', type: 'info', title: 'New Feature', message: 'We have added audio recording to cards!', time: '3 days ago', icon: <Info className="h-5 w-5 text-green-500" /> },
+  { id: '4', type: 'download', title: 'Download Complete', message: 'Japanese N5 Kanji deck is ready to use', time: '1 week ago', icon: <Download className="h-5 w-5 text-purple-500" /> },
+]
+
 export function NotificationView() {
-  const router = useRouter(); const handleBack = () => { router.back() }; return (
+  const router = useRouter()
+  const handleBack = () => {
+    router.back()
+  }
+
+  return (
     <MobileLayout bodyClassName="bg-gray-50">
       {' '}
       <div className="flex flex-col h-full">

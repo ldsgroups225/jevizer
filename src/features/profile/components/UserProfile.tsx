@@ -31,6 +31,7 @@ export function UserProfile({
 }: UserProfileProps) {
   const router = useRouter()
   const goToEditProfile = () => router.push('/profile/edit')
+  const goToInterests = () => router.push('/interests/category')
 
   const getInitials = (name: string) => {
     return name
@@ -93,7 +94,12 @@ export function UserProfile({
       <div>
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-base font-semibold">Vos Centres d'Intérêt</h3>
-          <Button size="icon" variant="ghost" className="text-gray-500 w-7 h-7">
+          <Button
+            size="icon"
+            variant="ghost"
+            className="text-gray-500 w-7 h-7"
+            onClick={goToInterests}
+          >
             <Edit className="h-4 w-4" />
           </Button>
         </div>

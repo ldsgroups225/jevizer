@@ -1,4 +1,8 @@
-'use client'; import { Button } from '@/components/ui/button'; import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'; import { Award, Calendar, CheckCircle2 } from 'lucide-react'; import React from 'react'
+'use client'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Award, Calendar, CheckCircle2 } from 'lucide-react'
+import React from 'react'
 
 interface AchievementModalProps { isOpen: boolean, onOpenChange: (open: boolean) => void, title?: string, description?: string, streakDays?: number }
 export function AchievementModal({ isOpen, onOpenChange, title = 'Achievement Unlocked', description = 'You have reached a new milestone!', streakDays }: AchievementModalProps) {

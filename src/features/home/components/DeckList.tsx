@@ -17,6 +17,7 @@ interface DeckListProps {
 }
 
 export function DeckList({ decks, onAddDeck }: DeckListProps) {
+  const _onAddDeck = onAddDeck // TODO: remove this
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
   const toggleExpand = (id: string) => {
@@ -109,6 +110,7 @@ function CardQuickAction({
 }) {
   return (
     <button
+      type="button"
       className="flex items-center gap-1 text-sm text-muted-foreground"
       onClick={onClick}
     >

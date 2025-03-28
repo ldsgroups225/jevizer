@@ -20,7 +20,7 @@ export function AddCardView() {
   const handlePreview = () => {
     // Preview functionality would be implemented here
     // For now, just log a message
-    console.log('Previewing card')
+    console.warn('Previewing card')
   }
 
   const handleSaveAsDraft = () => {

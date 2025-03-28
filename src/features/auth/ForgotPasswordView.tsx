@@ -1,10 +1,30 @@
-'use client'; import MobileLayout from '@/components/layout/MobileLayout'; import { Alert, AlertDescription } from '@/components/ui/alert'; import { Button } from '@/components/ui/button'; import { Input } from '@/components/ui/input'; import { Label } from '@/components/ui/label'; import { CheckCircle2 } from 'lucide-react'; import Link from 'next/link'; import { useRouter } from 'next/navigation'; import React, { useState } from 'react'
+'use client'
+import type { FormEvent } from 'react'
+import MobileLayout from '@/components/layout/MobileLayout'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { CheckCircle2 } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export function ForgotPasswordView() {
-  const router = useRouter(); const [email, setEmail] = useState(''); const [isSubmitted, setIsSubmitted] = useState(false); const [isLoading, setIsLoading] = useState(false)
-  const handleSubmit = async (e) => {
-    e.preventDefault(); if (!email.trim())
-      return; setIsLoading(true); setTimeout(() => { setIsLoading(false); setIsSubmitted(true) }, 1500)
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!email.trim())
+      return
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+      setIsSubmitted(true)
+    }, 1500)
   }
   return (
     <MobileLayout bodyClassName="bg-white">

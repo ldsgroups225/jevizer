@@ -56,3 +56,16 @@ export interface SummaryStats {
   timeSpent: string
   cardsLearned: number
 }
+
+export interface InterestCategory {
+  id: string
+  name: string
+  icon: string
+  description: string
+}
+
+export interface ILanguage {
+  id: string
+  name: string
+  flag: string
+}
