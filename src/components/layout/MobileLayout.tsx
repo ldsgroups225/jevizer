@@ -6,7 +6,7 @@ import { BarChart3, BookOpen, Home, Menu, Search } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
-type ActiveTab = 'home' | 'statistics' | 'search' | 'menu' | null
+type ActiveTab = 'home' | 'statistics' | 'search' | 'menu' | 'learning' | null
 
 interface MobileLayoutProps {
   children: React.ReactNode
