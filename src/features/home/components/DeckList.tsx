@@ -65,7 +65,7 @@ export function DeckList({ decks, onAddDeck }: DeckListProps) {
                   onClick={() => console.warn('Voulu voir les options')}
                 />
 
-                <Button size="sm" className="h-7 px-10">Apprendre</Button>
+                <Button size="sm" className="h-7">Apprendre</Button>
               </div>
             </div>
           </FlashCard>
@@ -83,16 +83,15 @@ function DeckStatItem({
   value: string
 }) {
   return (
-    <div className="grid grid-cols-3 gap-1 text-foreground font-medium ">
-      <span>
-        <span className="mr-2">•</span>
-        {' '}
+    <div className="grid grid-cols-4 gap-1 font-semibold text-medium text-muted-foreground text-xs">
+      <span className="col-span-2 truncate">
+        {'• '}
         {label}
       </span>
-      <span className="ml-8">
+      <span className="ml-8 col-span-1">
         {value}
       </span>
-      <span>
+      <span className="col-span-1">
         cartes
       </span>
     </div>
@@ -114,7 +113,7 @@ function CardQuickAction({
       className="flex items-center gap-1 text-sm text-muted-foreground"
       onClick={onClick}
     >
-      <Icon className="size-4 mr-1" />
+      <Icon className="size-4" />
       {label}
     </button>
   )
