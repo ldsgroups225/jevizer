@@ -1,21 +1,32 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next'
-import { cn } from '@/lib/utils' // Import cn
-// Import specific weights if needed, or rely on variable font capabilities
+
+import { PWAInstallPrompt } from '@/components/pwa-install-prompt'
+import { cn } from '@/lib/utils'
 import { Cairo } from 'next/font/google'
 import './globals.css'
 
-// Configure Cairo font
 const cairo = Cairo({
   subsets: ['latin'],
-  display: 'swap', // Improve font loading performance
-  variable: '--font-cairo-sans', // Use the variable name defined in globals/tailwind
+  display: 'swap',
+  variable: '--font-cairo-sans',
   weight: ['400', '500', '700'],
 })
 
 export const metadata: Metadata = {
-  title: 'Jeviz', // Update title if needed
+  title: 'Jeviz',
   description: 'Your smart learning partner for BEPC and BAC exams in Ivory Coast',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Jeviz',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  themeColor: '#ffffff',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
 }
 
 export default function RootLayout({
@@ -25,9 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      {/* Apply font variable to the body */}
       <body className={cn('antialiased font-sans', cairo.variable)}>
         {children}
+        <PWAInstallPrompt />
       </body>
     </html>
   )
