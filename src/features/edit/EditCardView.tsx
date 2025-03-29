@@ -111,7 +111,7 @@ export function EditCardView({ params, searchParams: _searchParams }: EditCardVi
             </div>
           </div>
 
-          <div className="mt-auto grid grid-cols-1 gap-3 !mt-auto pt-4">
+          <div className="grid grid-cols-1 gap-3 !mt-auto pt-4">
             <Button onClick={handleSave}>Enregistrer les modifications</Button>
           </div>
         </div>
