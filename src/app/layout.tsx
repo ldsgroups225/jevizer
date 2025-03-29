@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { PWAInstallPrompt } from '@/components/pwa-install-prompt'
 import { cn } from '@/lib/utils'
 import { Cairo } from 'next/font/google'
+
 import './globals.css'
 
 const cairo = Cairo({
@@ -12,6 +13,14 @@ const cairo = Cairo({
   variable: '--font-cairo-sans',
   weight: ['400', '500', '700'],
 })
+
+export const viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   title: 'Jeviz',
@@ -25,7 +34,6 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  themeColor: '#ffffff',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
 }
 
