@@ -1,66 +1,88 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useReducer, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+type State = {
+  showPrompt: boolean
+  deferredPrompt: any
+  isIOS: boolean
+  isStandalone: boolean
+}
+
+type Action =
+  | { type: 'SET_STANDALONE'; payload: boolean }
+  | { type: 'SET_IOS'; payload: boolean }
+  | { type: 'SET_DEFERRED_PROMPT'; payload: any }
+  | { type: 'SET_SHOW_PROMPT'; payload: boolean }
+  | { type: 'RESET_PROMPT' }
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case 'SET_STANDALONE':
+      return { ...state, isStandalone: action.payload }
+    case 'SET_IOS':
+      return { ...state, isIOS: action.payload }
+    case 'SET_DEFERRED_PROMPT':
+      return { ...state, deferredPrompt: action.payload }
+    case 'SET_SHOW_PROMPT':
+      return { ...state, showPrompt: action.payload }
+    case 'RESET_PROMPT':
+      return { ...state, showPrompt: false, deferredPrompt: null }
+    default:
+      return state
+  }
+}
+
 export function PWAInstallPrompt() {
-  const [showPrompt, setShowPrompt] = useState(false)
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
-  const [isIOS, setIsIOS] = useState(false)
-  const [isStandalone, setIsStandalone] = useState(false)
+  const [state, dispatch] = useReducer(reducer, {
+    showPrompt: false,
+    deferredPrompt: null,
+    isIOS: false,
+    isStandalone: false,
+  })
+
+  const updateStandalone = useCallback(() => {
+    const standalone = window.matchMedia('(display-mode: standalone)').matches
+    dispatch({ type: 'SET_STANDALONE', payload: standalone })
+  }, [])
+
+  const updateIOS = useCallback(() => {
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    dispatch({ type: 'SET_IOS', payload: iOS })
+  }, [])
+
+  const handleBeforeInstallPrompt = useCallback((e: Event) => {
+    e.preventDefault()
+    dispatch({ type: 'SET_DEFERRED_PROMPT', payload: e })
+    
+    const hasInteracted = localStorage.getItem('pwa-prompt-interaction')
+    if (!hasInteracted) {
+      dispatch({ type: 'SET_SHOW_PROMPT', payload: true })
+    }
+  }, [])
 
   useEffect(() => {
-    const checkStandalone = () => {
-      const standalone = window.matchMedia('(display-mode: standalone)').matches
-      if (standalone !== isStandalone) {
-        setIsStandalone(standalone)
-      }
-    }
+    updateStandalone()
+    updateIOS()
 
-    const checkIOS = () => {
-      const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
-      if (iOS !== isIOS) {
-        setIsIOS(iOS)
-      }
-    }
-
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault()
-      setDeferredPrompt(e)
-      setShowPrompt(true)
-    }
-
-    // Initial checks
-    checkStandalone()
-    checkIOS()
-
-    // Check if user has already dismissed or installed
-    const hasInteracted = localStorage.getItem('pwa-prompt-interaction')
-    if (hasInteracted) {
-      setShowPrompt(false)
-    }
-
-    // Add event listeners
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-
-    // Cleanup
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
     }
-  }, [isIOS, isStandalone])
+  }, [updateStandalone, updateIOS, handleBeforeInstallPrompt])
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return
+    if (!state.deferredPrompt) return
     
     try {
-      await deferredPrompt.prompt()
-      const { outcome } = await deferredPrompt.userChoice
+      await state.deferredPrompt.prompt()
+      const { outcome } = await state.deferredPrompt.userChoice
       if (outcome === 'accepted') {
         localStorage.setItem('pwa-prompt-interaction', 'installed')
-        setShowPrompt(false)
-        setDeferredPrompt(null)
+        dispatch({ type: 'RESET_PROMPT' })
       }
     } catch (error) {
       console.error('Error installing PWA:', error)
@@ -69,10 +91,10 @@ export function PWAInstallPrompt() {
 
   const handleDismiss = () => {
     localStorage.setItem('pwa-prompt-interaction', 'dismissed')
-    setShowPrompt(false)
+    dispatch({ type: 'SET_SHOW_PROMPT', payload: false })
   }
 
-  if (!showPrompt || isStandalone) return null
+  if (!state.showPrompt || state.isStandalone) return null
 
   return (
     <div className={cn(
@@ -83,7 +105,7 @@ export function PWAInstallPrompt() {
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <h3 className="font-semibold text-lg">Installer Jeviz</h3>
-          {isIOS ? (
+          {state.isIOS ? (
             <p className="text-sm text-muted-foreground mt-1">
               Pour installer Jeviz, appuyez sur le bouton partager 
               <span role="img" aria-label="share" className="mx-1">⎋</span> 
@@ -98,7 +120,7 @@ export function PWAInstallPrompt() {
         </div>
         
         <div className="flex items-center gap-2">
-          {!isIOS && (
+          {!state.isIOS && (
             <Button onClick={handleInstall} variant="default" size="sm">
               Installer
             </Button>
