@@ -1,7 +1,14 @@
+// src/app/decks/[deckId]/page.tsx
+
 import { DeckDetailView } from '@/features/decks/DeckDetailView'
 
-export default function DeckDetailPage({ params }: { params: { deckId: string } }) {
-  const { deckId } = params
+interface PageProps {
+  params: Promise<{
+    deckId: string
+  }>
+}
 
-  return <DeckDetailView deckId={deckId} />
+export default async function DeckPage({ params }: PageProps) {
+  const resolvedParams = await params
+  return <DeckDetailView deckId={resolvedParams.deckId} />
 }

@@ -16,7 +16,12 @@ interface EditCardParams {
   cardId?: string
 }
 
-export function EditCardView({ params }: { params: EditCardParams }) {
+interface EditCardViewProps {
+  params: EditCardParams
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+export function EditCardView({ params, searchParams: _searchParams }: EditCardViewProps) {
   const router = useRouter()
   const { cardId } = params || { cardId: 'sample-card-id' }
   const [isFront, setIsFront] = useState(true)
