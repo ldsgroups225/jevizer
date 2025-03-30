@@ -25,7 +25,7 @@ export function EditCardView({ params, searchParams: _searchParams }: EditCardVi
   const router = useRouter()
   const { cardId } = params || { cardId: 'sample-card-id' }
   const [isFront, setIsFront] = useState(true)
-  const [cardData, setCardData] = useState<ICardData>({ front: '家族', back: 'Famille' })
+  const [cardData, setCardData] = useState<ICardData>({ id: 'sample-card-id', front: '家族', back: 'Famille' })
 
   useEffect(() => {
     // Dans une vraie application, récupérer les données de la carte par cardId

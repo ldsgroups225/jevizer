@@ -17,7 +17,7 @@ export function AddCardView() {
   const router = useRouter()
 
   const [isFront, setIsFront] = useState<boolean>(true)
-  const [cardData, setCardData] = useState<ICardData>({ front: '', back: '' })
+  const [cardData, setCardData] = useState<ICardData>({ id: '', front: '', back: '' })
   const [selectedDeck, _setSelectedDeck] = useState<string>('Default Deck')
   const [cardType, _setCardType] = useState<string>('Basic')
   const [tags, _setTags] = useState<string>('Japanese, Kanji')
@@ -53,7 +53,7 @@ export function AddCardView() {
     // Add API call to add card
     // Show feedback
     // Optionally clear form or navigate
-    setCardData({ front: '', back: '' }) // Clear form after adding
+    setCardData({ id: '', front: '', back: '' }) // Clear form after adding
     // router.push('/');
   }
 

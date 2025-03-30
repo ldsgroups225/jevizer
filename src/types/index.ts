@@ -137,7 +137,10 @@ export interface IReview {
 
 // Type for card data being edited or added
 export interface ICardData {
+  id: string | number
   front: string
   back: string
-  // Add other fields like tags, deckId, audio, image etc. as needed
+  audioUrl?: string // Optional audio URL
+  imageUrl?: string
+  tags?: string[]
 }
