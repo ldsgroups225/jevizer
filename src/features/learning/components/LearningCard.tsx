@@ -27,10 +27,13 @@ interface LearningCardProps {
   cardId?: string | number
 }
 
+// --- UPDATED contentFadeVariants ---
 const contentFadeVariants = {
   hidden: { opacity: 0, transition: { duration: 0.1 } },
-  visible: { opacity: 1, transition: { duration: 0.2, delay: 0.25 } },
+  // REMOVED delay: 0.25
+  visible: { opacity: 1, transition: { duration: 0.2 /* removed delay */ } },
 }
+// --- END UPDATED contentFadeVariants ---
 
 const audioPlayerVariants = {
   hidden: {
@@ -55,7 +58,6 @@ const audioPlayerVariants = {
   },
 }
 
-// Variants for icons like Play/Pause
 const iconVariants = {
   initial: { scale: 0.5, opacity: 0 },
   animate: { scale: 1, opacity: 1 },
@@ -63,7 +65,6 @@ const iconVariants = {
   transition: { duration: 0.15 },
 }
 
-// Variants for the entire action section
 const actionsVariants = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0, transition: { delay: 0.1 } },
@@ -82,7 +83,6 @@ export function LearningCard({
 }: LearningCardProps) {
   const [isPlaying, setIsPlaying] = useState(false)
 
-  // --- Enhanced Flip Animation Setup ---
   const rotateYSpring = useSpring(state === 'back' ? 180 : 0, {
     stiffness: 100,
     damping: 20,
@@ -112,7 +112,6 @@ export function LearningCard({
     )
   }
 
-  // Handler for play/pause button
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying)
     console.warn(isPlaying ? 'Pausing audio...' : 'Playing audio...')
@@ -125,9 +124,8 @@ export function LearningCard({
   return (
     <LazyMotion features={domAnimation}>
       <div className="flex flex-col flex-1 justify-between">
-        {/* --- Card Flip Area --- */}
+        {/* Card Flip Area */}
         <div className="flex-grow" style={{ perspective: 1200 }}>
-          {/* Rotating Container */}
           <motion.div
             className="relative w-full h-full min-h-[50vh]"
             style={{
@@ -138,21 +136,18 @@ export function LearningCard({
               z: translateZ,
             }}
           >
+            {/* Front Face */}
             <motion.div
               className="absolute w-full h-full"
-              style={{
-                backfaceVisibility: 'hidden',
-                filter: brightness,
-              }}
+              style={{ backfaceVisibility: 'hidden', filter: brightness }}
             >
-              {/* --- Actual Card Visuals --- */}
               <Card className="w-full h-full flex flex-col justify-center items-center p-6 border-gray-200 shadow-sm">
                 <CardContent className="w-full p-0 flex justify-center items-center">
                   <AnimatePresence initial={false}>
                     {state === 'front' && (
                       <motion.div
                         key={currentFrontKey}
-                        variants={contentFadeVariants}
+                        variants={contentFadeVariants} // Uses updated variants
                         initial="hidden"
                         animate="visible"
                         exit="hidden"
@@ -166,6 +161,7 @@ export function LearningCard({
               </Card>
             </motion.div>
 
+            {/* Back Face */}
             <motion.div
               className="absolute w-full h-full"
               style={{
@@ -174,15 +170,13 @@ export function LearningCard({
                 filter: brightness,
               }}
             >
-              {/* --- Actual Card Visuals --- */}
               <Card className="w-full h-full flex flex-col justify-center items-center p-6 border-gray-200 shadow-sm">
                 <CardContent className="w-full p-0 flex flex-col justify-center items-center">
-                  {/* --- Animated Content (Back) --- */}
                   <AnimatePresence initial={false}>
                     {state === 'back' && (
                       <motion.div
                         key={currentBackKey}
-                        variants={contentFadeVariants}
+                        variants={contentFadeVariants} // Uses updated variants
                         initial="hidden"
                         animate="visible"
                         exit="hidden"
@@ -198,55 +192,27 @@ export function LearningCard({
           </motion.div>
         </div>
 
-        {/* --- Actions Section --- */}
+        {/* Actions Section */}
         <div className="mt-4">
           <AnimatePresence initial={false} mode="wait">
             {state === 'front'
               ? (
-                  // --- Show Answer Button ---
-                  <motion.div
-                    key="show-answer-btn"
-                    variants={actionsVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                  >
+                  <motion.div key="show-answer-btn" variants={actionsVariants} initial="initial" animate="animate" exit="exit">
                     <motion.div {...buttonTapScale}>
-                      <Button
-                        className="w-full h-12 text-base"
-                        onClick={onShowAnswer}
-                      >
+                      <Button className="w-full h-12 text-base" onClick={onShowAnswer}>
                         Afficher la réponse
                       </Button>
                     </motion.div>
                   </motion.div>
                 )
               : (
-                  // --- Rating Section (Audio + Buttons + Icons) ---
-                  <motion.div
-                    key="rating-section"
-                    variants={actionsVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                  >
-                    {/* --- Audio Player (Conditional) --- */}
+                  <motion.div key="rating-section" variants={actionsVariants} initial="initial" animate="animate" exit="exit">
+                    {/* Audio Player */}
                     <AnimatePresence>
                       {audioUrl && (
-                        <motion.div
-                          className="flex items-center gap-3 px-2"
-                          variants={audioPlayerVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="hidden"
-                        >
+                        <motion.div className="flex items-center gap-3 px-2" variants={audioPlayerVariants} initial="hidden" animate="visible" exit="hidden">
                           <motion.div {...buttonTapScale}>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="rounded-full bg-gray-100"
-                              onClick={handlePlayPause}
-                            >
+                            <Button variant="ghost" size="icon" className="rounded-full bg-gray-100" onClick={handlePlayPause}>
                               <AnimatePresence mode="wait">
                                 {isPlaying
                                   ? <motion.div key="pause" {...iconVariants}><Pause className="w-5 h-5" /></motion.div>
@@ -256,47 +222,35 @@ export function LearningCard({
                           </motion.div>
                           <Slider defaultValue={[33]} max={100} step={1} className="flex-1" />
                           <span className="text-xs text-gray-500">00:02.30</span>
-                          {' '}
-                          {/* TODO: Make dynamic */}
                           <motion.div {...buttonTapScale}>
                             <Button variant="ghost" size="icon" className="text-gray-500">
+                              {' '}
                               <Volume2 className="w-5 h-5" />
+                              {' '}
                             </Button>
                           </motion.div>
                         </motion.div>
                       )}
                     </AnimatePresence>
 
-                    {/* --- Rating Buttons --- */}
+                    {/* Rating Buttons */}
                     <div className="grid grid-cols-3 gap-3">
                       <motion.div {...buttonTapScale}>
-                        <Button
-                          variant="outline"
-                          className="h-14 w-full flex flex-col border-red-300 text-red-600 hover:bg-red-50"
-                          onClick={() => onRate('again')}
-                        >
+                        <Button variant="outline" className="h-14 w-full flex flex-col border-red-300 text-red-600 hover:bg-red-50" onClick={() => onRate('again')}>
                           Encore
                           {' '}
                           <span className="text-xs font-normal">1 Min</span>
                         </Button>
                       </motion.div>
                       <motion.div {...buttonTapScale}>
-                        <Button
-                          variant="outline"
-                          className="h-14 w-full flex flex-col border-blue-300 text-blue-600 hover:bg-blue-50"
-                          onClick={() => onRate('good')}
-                        >
+                        <Button variant="outline" className="h-14 w-full flex flex-col border-blue-300 text-blue-600 hover:bg-blue-50" onClick={() => onRate('good')}>
                           Bon
                           {' '}
                           <span className="text-xs font-normal">10 Min</span>
                         </Button>
                       </motion.div>
                       <motion.div {...buttonTapScale}>
-                        <Button
-                          variant="outline"
-                          className="h-14 w-full flex flex-col border-green-300 text-green-600 hover:bg-green-50"
-                          onClick={() => onRate('easy')}
-                        >
+                        <Button variant="outline" className="h-14 w-full flex flex-col border-green-300 text-green-600 hover:bg-green-50" onClick={() => onRate('easy')}>
                           Facile
                           {' '}
                           <span className="text-xs font-normal">4 Jours</span>
@@ -304,16 +258,20 @@ export function LearningCard({
                       </motion.div>
                     </div>
 
-                    {/* --- Bottom Icons --- */}
+                    {/* Bottom Icons */}
                     <div className="flex justify-center gap-8 mt-4">
                       <motion.div {...buttonTapScale}>
                         <Button variant="ghost" size="icon" className="text-gray-500">
+                          {' '}
                           <Bookmark className="w-5 h-5" />
+                          {' '}
                         </Button>
                       </motion.div>
                       <motion.div {...buttonTapScale}>
                         <Button variant="ghost" size="icon" className="text-gray-500">
+                          {' '}
                           <Edit className="w-5 h-5" />
+                          {' '}
                         </Button>
                       </motion.div>
                     </div>

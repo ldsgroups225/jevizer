@@ -28,7 +28,7 @@ interface FlashCardProps {
   children?: React.ReactNode
 }
 
-const MotionCard = motion(Card)
+const MotionCard = motion.create(Card)
 
 const badgeVariants = {
   hidden: { opacity: 0, scale: 0.8 },
