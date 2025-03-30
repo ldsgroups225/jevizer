@@ -84,7 +84,8 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "sharp"
+      "sharp",
+      "simple-git-hooks"
     ]
   },
   "simple-git-hooks": {
