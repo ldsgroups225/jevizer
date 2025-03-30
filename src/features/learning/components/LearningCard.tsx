@@ -4,11 +4,11 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
-
 import { buttonTapScale } from '@/types/animations'
+
 import { AnimatePresence, domAnimation, LazyMotion, motion } from 'framer-motion'
-import { Bookmark, Edit, Play, Volume2 } from 'lucide-react'
-import React from 'react'
+import { Bookmark, Edit, Pause, Play, Volume2 } from 'lucide-react'
+import React, { useState } from 'react'
 
 interface LearningCardProps {
   frontContent: React.ReactNode
@@ -27,6 +27,31 @@ const variants = {
   exit: { opacity: 0, y: -20 },
 }
 
+const audioPlayerVariants = {
+  hidden: {
+    opacity: 0,
+    height: 0,
+    transition: {
+      height: { duration: 0.3 },
+      opacity: { duration: 0.2 },
+    },
+  },
+  visible: {
+    opacity: 1,
+    height: 'auto',
+    transition: {
+      height: { duration: 0.3 },
+      opacity: { duration: 0.2, delay: 0.1 },
+    },
+  },
+}
+
+const iconVariants = {
+  initial: { scale: 0.5, opacity: 0 },
+  animate: { scale: 1, opacity: 1 },
+  exit: { scale: 0.5, opacity: 0 },
+}
+
 export function LearningCard({
   frontContent,
   backContent,
@@ -35,11 +60,18 @@ export function LearningCard({
   onRate,
   audioUrl,
 }: LearningCardProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+
   const renderContent = (content: React.ReactNode) => {
     if (typeof content === 'string' && content.length < 5) {
       return <div className="text-6xl font-medium text-center">{content}</div>
     }
     return <div className="text-2xl text-center">{content}</div>
+  }
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying)
+    // Add your audio play/pause logic here
   }
 
   return (
@@ -107,27 +139,64 @@ export function LearningCard({
             : (
                 <>
                   {/* Audio Player (Conditional) */}
-                  {audioUrl && (
-                    <motion.div
-                      className="flex items-center gap-3 mb-4 px-2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      <motion.div whileTap={buttonTapScale}>
-                        <Button variant="ghost" size="icon" className="rounded-full bg-gray-100">
-                          <Play className="w-5 h-5" />
-                        </Button>
+                  <AnimatePresence>
+                    {audioUrl && (
+                      <motion.div
+                        className="flex items-center gap-3 mb-4 px-2"
+                        variants={audioPlayerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                      >
+                        <motion.div whileTap={buttonTapScale}>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="rounded-full bg-gray-100"
+                            onClick={handlePlayPause}
+                          >
+                            <AnimatePresence mode="wait">
+                              {isPlaying
+                                ? (
+                                    <motion.div
+                                      key="pause"
+                                      variants={iconVariants}
+                                      initial="initial"
+                                      animate="animate"
+                                      exit="exit"
+                                      transition={{ duration: 0.15 }}
+                                    >
+                                      <Pause className="w-5 h-5" />
+                                    </motion.div>
+                                  )
+                                : (
+                                    <motion.div
+                                      key="play"
+                                      variants={iconVariants}
+                                      initial="initial"
+                                      animate="animate"
+                                      exit="exit"
+                                      transition={{ duration: 0.15 }}
+                                    >
+                                      <Play className="w-5 h-5" />
+                                    </motion.div>
+                                  )}
+                            </AnimatePresence>
+                          </Button>
+                        </motion.div>
+                        <Slider defaultValue={[33]} max={100} step={1} className="flex-1" />
+                        <span className="text-xs text-gray-500">00:02.30</span>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={buttonTapScale}
+                        >
+                          <Button variant="ghost" size="icon" className="text-gray-500">
+                            <Volume2 className="w-5 h-5" />
+                          </Button>
+                        </motion.div>
                       </motion.div>
-                      <Slider defaultValue={[33]} max={100} step={1} className="flex-1" />
-                      <span className="text-xs text-gray-500">00:02.30</span>
-                      <motion.div whileTap={buttonTapScale}>
-                        <Button variant="ghost" size="icon" className="text-gray-500">
-                          <Volume2 className="w-5 h-5" />
-                        </Button>
-                      </motion.div>
-                    </motion.div>
-                  )}
+                    )}
+                  </AnimatePresence>
 
                   {/* Rating Buttons */}
                   <motion.div
