@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import ClientLayoutWrapper from '@/components/ClientLayoutWrapper'
 import { PWAInstallPrompt } from '@/components/pwa-install-prompt'
 import { cn } from '@/lib/utils'
@@ -14,9 +14,18 @@ const cairo = Cairo({
   weight: ['400', '500', '700'],
 })
 
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+  colorScheme: 'light dark',
+}
+
 export const metadata: Metadata = {
   title: 'Jeviz',
-  description: 'Your smart learning partner for BEPC and BAC exams in Ivory Coast',
+  // description: 'Your smart learning partner for BEPC and BAC exams in Ivory Coast',
   manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
@@ -26,15 +35,6 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
-}
-
-export const viewport = {
-  themeColor: '#ffffff',
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: 'cover',
 }
 
 export default function RootLayout({
