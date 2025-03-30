@@ -95,6 +95,9 @@ importers:
       '@vercel/kv':
         specifier: ^3.0.0
         version: 3.0.0
+      appwrite:
+        specifier: ^17.0.1
+        version: 17.0.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2075,6 +2078,9 @@ packages:
   ansis@3.17.0:
     resolution: {integrity: sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==}
     engines: {node: '>=14'}
+
+  appwrite@17.0.1:
+    resolution: {integrity: sha512-bTLxle4wasY8uQewr/tdANC4AhQ/AkcaPfMd0L9N4tQecQwUVXow2EhlWh98jURBAMn6cyoN/G46G4w3sVkcOQ==}
 
   are-docs-informative@0.0.2:
     resolution: {integrity: sha512-ixiS0nLNNG5jNQzgZJNoUpBKdo9yTYZMGJ+QgT2jmjR7G7+QHRCc4v6LQ3NgE7EBJq+o0ams3waJwkrlBom8Ig==}
@@ -6567,6 +6573,8 @@ snapshots:
   ansi-styles@6.2.1: {}
 
   ansis@3.17.0: {}
+
+  appwrite@17.0.1: {}
 
   are-docs-informative@0.0.2: {}
 

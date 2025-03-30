@@ -4,6 +4,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch' // Use Switch component
+import { useLogout } from '@/hooks/useLogout'
 import {
   Bell,
   ChevronRight,
@@ -38,6 +39,8 @@ export function SideMenu({
       .join('')
       .toUpperCase()
   }
+
+  const { logout, isLoading, error } = useLogout()
 
   return (
     // Removed fixed height, let it fill the container from MobileLayout
@@ -101,10 +104,15 @@ export function SideMenu({
       <Button
         variant="ghost"
         className="justify-start gap-4 p-3 h-12 text-red-500 hover:bg-red-50 hover:text-red-600 mt-6 text-base font-medium"
+        onClick={logout}
+        disabled={isLoading}
       >
         <LogOut className="h-5 w-5" />
-        Se déconnecter
+        {isLoading ? 'Déconnexion...' : 'Se déconnecter'}
       </Button>
+      {error && (
+        <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+      )}
     </div>
   )
 }
